@@ -53,17 +53,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-//        SortedSet<Zupanija> zupanije = new TreeSet<>(new CovidSorter());
-//        Set<Simptom> simptomi = new HashSet<>();
-//        Set<Bolest> bolesti = new HashSet<>();
-//        List<Osoba> osobe = new ArrayList<>();
-//        Map<Bolest, List<Osoba>> osobeZarazeneVirusima = new HashMap<>();
 
         // Unos Zupanija
 
         unosZupanija(input, zupanije);
-
-        // zupanije.stream().map(el-> el.getNaziv()).forEach(System.out::println);
 
         // Unos Simptoma
 
@@ -73,34 +66,9 @@ public class Main extends Application {
 
         unosBolesti(input, simptomi, bolesti);
 
-//        bolesti.stream().filter(e -> e.getNaziv().compareTo("COVID-19") == 0)
-//                .flatMap(el -> Stream.of(el.getSimptomi()))
-//                .collect(Collectors.toList()).get(0)
-//                .stream().map(e->e.getNaziv()).forEach(System.out::println);
-
         // Unos osoba
 
         unosOsoba(input, zupanije, bolesti, osobe);
-
-//
-//
-//        osobe.stream()
-//                .sorted(((Comparator
-//                        .comparing(Osoba::getPrezime)
-//                        .thenComparing(Osoba::getKorisnickoIme))))
-//                .forEach(System.out::println);
-//
-//
-//
-//        System.out.println(osobe.stream()
-//                .min(Comparator
-//                        .comparing(Osoba::getIme)
-//                        .thenComparing(Osoba::getPrezime)));
-//        System.out.println(osobe.stream()
-//                .max(Comparator
-//                        .comparing(Osoba::getPrezime)
-//                        .thenComparing(Osoba::getIme)));
-
 
         // Populacija Mape OsobeZarazeneVirusima
 
@@ -153,8 +121,6 @@ public class Main extends Application {
         });
     }
 
-    // Metoda izvedbe pete laboratorijske vjezbe
-
     /**
      * Izvodi sve zadatke navedene u petoj laboratorijskoj vjezbi
      *
@@ -164,7 +130,6 @@ public class Main extends Application {
 
     private static void izvedbaPetogLabosa(Set<Bolest> bolesti, List<Osoba> osobe, Scanner sc) {
         KlinikaZaInfektivneBolesti<Virus, Osoba> klinika;
-        // Zadatak 2 - instanciranje klinike
 
         klinika = new KlinikaZaInfektivneBolesti(
                 bolesti
@@ -183,8 +148,7 @@ public class Main extends Application {
         List<Virus> sortiraniVirusi1 = klinika
                 .getUneseniVirusi()
                 .stream()
-//            .sorted(Comparator.comparing(Virus::getNaziv).reversed()) // ovo je kao "lijepa lambda" ali nije isti algoritam kao i u trećem zadatku jer radimo reverse i sort posebno
-                .sorted((e1, e2) -> e2.getNaziv().compareTo(e1.getNaziv())) // ima vise smisla jer radimo samo compare između drugog i prvog koji daje obrnut poredak
+                .sorted((e1, e2) -> e2.getNaziv().compareTo(e1.getNaziv()))
                 .collect(Collectors.toList());
         Instant end1 = Instant.now();
 
@@ -213,47 +177,6 @@ public class Main extends Application {
                 + " milisekundi, a bez lambdi traje "
                 + Duration.between(start2, end2)
                 + " milisekundi");
-        /*
-
-        System.out.print("Unesite string za pretragu po prezimenu: ");
-
-        String nekoPrezime = sc.nextLine();
-
-        System.out.println("Osobe čije prezime sadrži \"" + nekoPrezime + "\" su slijedeće: ");
-
-        // Full hacky sa ovim ternarnim operatorom no nakon diskusije sa kolegama uistinu ne znam kako drugacije, jer lista i da je prazna nikako nece biti null vrijednost
-        // tako da sam namjerno isforsirao null da se mogu posluziti sa ifPresentOrElse metodom od Optional klase jer ovo je tehnicki lambda no full cudna lol :D
-        // Mogao sam i bez lambdi, no bojao sam se da ako ne koristim iskljucivo lambde (jer je tako navedeno u zadatku) nego if else sa usporedbom Optional tipa da ce
-        // mi priprema biti odbacena
-
-        Optional.ofNullable(
-                osobe
-                        .stream()
-                        .filter(el -> el.getPrezime().contains(nekoPrezime))
-                        .collect(Collectors.toList()).isEmpty() ?
-                        null :
-                        osobe
-                                .stream()
-                                .filter(el -> el.getPrezime().contains(nekoPrezime))
-                                .collect(Collectors.toList())
-        ).ifPresentOrElse(
-                el -> el.stream().map(ele -> ele.getIme() + " " + ele.getPrezime()).forEach(System.out::println),
-                () -> System.out.println("Lista je prazna")
-        );
-
-         */
-
-//        // Ovo bi bio drugi nacin rjesavanja ovakvog problema, no ne koristi lambde u potpunosti
-//
-//        Optional<List<Osoba>> nekaOsoba = Optional.of(osobe.stream().filter(el->el.getPrezime().contains(nekoPrezime)).collect(Collectors.toList()));
-//
-//        if (nekaOsoba.get().isEmpty()) {
-//             System.out.println("Lista osoba je prazna");
-//        } else {
-//            nekaOsoba.get().stream().map(ele -> ele.getIme() + " " + ele.getPrezime()).forEach(System.out::println);
-//        }
-
-//        nekaOsoba.stream().map(el->el.getIme()).forEach(System.out::println);
 
         bolesti
                 .stream()

@@ -1,6 +1,11 @@
 package main.java.sample.covidportal.model;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +30,7 @@ public class Osoba implements Serializable {
     public static class Builder {
         private Long id;
         private String ime, prezime;
-        private Integer starost;
+        private Date datumRodjenja;
         private Zupanija zupanija;
         private Bolest zarazenBolescu;
         private List<Osoba> kontaktiraneOsobe;
@@ -68,12 +73,12 @@ public class Osoba implements Serializable {
          * Služi za instanciranje objekta klase <code>class Builder</code>
          * Vraća samu instancu
          *
-         * @param starost starost osobe
+         * @param datumRodjenja datum rođenja osobe
          * @return instanca
          */
 
-        public Builder starost(Integer starost) {
-            this.starost = starost;
+        public Builder datumRodjenja(Date datumRodjenja) {
+            this.datumRodjenja = datumRodjenja;
             return this;
         }
 
@@ -128,7 +133,7 @@ public class Osoba implements Serializable {
             osoba.id = this.id;
             osoba.ime = this.ime;
             osoba.prezime = this.prezime;
-            osoba.starost = this.starost;
+            osoba.datumRodjenja = this.datumRodjenja;
             osoba.zupanija = this.zupanija;
             osoba.zarazenBolescu = this.zarazenBolescu;
             osoba.kontaktiraneOsobe = this.kontaktiraneOsobe;
@@ -152,7 +157,7 @@ public class Osoba implements Serializable {
 
     private Long id;
     private String ime, prezime;
-    private Integer starost;
+    private Date datumRodjenja;
     private Zupanija zupanija;
     private Bolest zarazenBolescu;
     private List<Osoba> kontaktiraneOsobe;
@@ -190,7 +195,7 @@ public class Osoba implements Serializable {
 
 
         return "Ime i prezime: " + ime + " " + prezime + "\n" +
-                "Starost: " + starost + "\n" +
+                "Starost: " + starostOsobe() + "\n" +
                 "Županija prebivališta: " + zupanija.getNaziv() + "\n" +
                 "Zaražen bolešću: " + zarazenBolescu.getNaziv() + "\n" +
                 "Kontaktirane osobe: \n" + ispisKontaktiranihOsoba;
@@ -213,7 +218,7 @@ public class Osoba implements Serializable {
         return Objects.equals(getId(), osoba.getId()) &&
                 Objects.equals(getIme(), osoba.getIme()) &&
                 Objects.equals(getPrezime(), osoba.getPrezime()) &&
-                Objects.equals(getStarost(), osoba.getStarost()) &&
+                Objects.equals(getDatumRodjenja(), osoba.getDatumRodjenja()) &&
                 Objects.equals(getZupanija(), osoba.getZupanija()) &&
                 Objects.equals(getZarazenBolescu(), osoba.getZarazenBolescu()) &&
                 Objects.equals(getKontaktiraneOsobe(), osoba.getKontaktiraneOsobe());
@@ -227,10 +232,19 @@ public class Osoba implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getIme(), getPrezime(), getStarost(), getZupanija(), getZarazenBolescu(), getKontaktiraneOsobe());
+        return Objects.hash(getId(), getIme(), getPrezime(), getDatumRodjenja(), getZupanija(), getZarazenBolescu(), getKontaktiraneOsobe());
     }
 
-
+    public int starostOsobe() {
+        if((datumRodjenja != null) && (LocalDate.now() != null)) {
+            ZoneId zone = ZoneId.systemDefault();
+            Instant instant = datumRodjenja.toInstant();
+            LocalDate localDate = instant.atZone(zone).toLocalDate();
+            return Period.between(localDate, LocalDate.now()).getYears();
+        } else {
+            return 0;
+        }
+    }
 
 
     /**
@@ -296,21 +310,21 @@ public class Osoba implements Serializable {
     /**
      * Vraća starost osobe
      *
-     * @return starost
+     * @return datumRodjenja
      */
 
-    public Integer getStarost() {
-        return starost;
+    public Date getDatumRodjenja() {
+        return datumRodjenja;
     }
 
     /**
      * Postavlja starost osobe
      *
-     * @param starost
+     * @param datumRodjenja
      */
 
-    public void setStarost(Integer starost) {
-        this.starost = starost;
+    public void setDatumRodjenja(Date datumRodjenja) {
+        this.datumRodjenja = datumRodjenja;
     }
 
     /**
