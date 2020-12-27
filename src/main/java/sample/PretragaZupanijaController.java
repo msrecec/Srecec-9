@@ -9,17 +9,25 @@ import javafx.scene.control.TableColumnBase;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.java.sample.covidportal.baza.BazaPodataka;
 import main.java.sample.covidportal.model.Zupanija;
 import main.java.sample.covidportal.sort.CovidSorter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class PretragaZupanijaController implements Initializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(PretragaZupanijaController.class);
+
     private static ObservableList<Zupanija> observableListaZupanija;
+
+    private static SortedSet<Zupanija> zupanije;
 
     @FXML
     private TableView tablicaZupanija ;
@@ -38,7 +46,7 @@ public class PretragaZupanijaController implements Initializable {
         String uneseniNazivZupanije = unosNazivaZupanije.getText().toLowerCase();
 
         Optional<List<Zupanija>> filtriraneZupanije = Optional.ofNullable(
-                Main.zupanije
+                zupanije
                 .stream()
                 .filter(z -> z.getNaziv().toLowerCase().contains(uneseniNazivZupanije))
                 .collect(Collectors.toList())
@@ -60,7 +68,16 @@ public class PretragaZupanijaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         observableListaZupanija = FXCollections.observableArrayList();
-        observableListaZupanija.addAll(Main.zupanije);
+        try {
+            zupanije = BazaPodataka.dohvatiSveZupanije();
+            observableListaZupanija.addAll(zupanije);
+        } catch (SQLException throwables) {
+            logger.error(throwables.getMessage());
+            PocetniEkranController.neuspjesanUnos(throwables.getMessage());
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            PocetniEkranController.neuspjesanUnos(e.getMessage());
+        }
 
         nazivStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, String>("naziv"));
         stanovniciStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, Integer>("brojStanovnika"));
