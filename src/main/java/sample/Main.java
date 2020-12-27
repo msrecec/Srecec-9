@@ -750,28 +750,28 @@ public class Main extends Application {
         }
     }
 
-//    /**
-//     * Provjerava postojanost odabrane kontaktirane osobe <code>int odabranaKontaktiranaOsoba</code> u polju
-//     * <code>int[] odabraneUneseneKontaktiraneOsobe</code> i provjerava duplikate
-//     * ako postoji duplikat baca iznimku <code>throw new DuplikatKontaktiraneOsobe("Prilikom unosa odabira kontaktirane osobe, unesena je prethodno odabrana osoba (duplikat): "
-//     * + Integer.toString(odabranaKontaktiranaOsoba));</code>
-//     *
-//     * @param odabranaUnesenaKontaktiranaOsoba unesena odabrana kontaktirana osoba
-//     * @param odabraneUneseneKontaktiraneOsobe polje prethodno odabranih kontaktiranih osoba
-//     * @throws DuplikatKontaktiraneOsobe iznimka koja se baca u slučaju kada su uneseni duplikati
-//     */
-//
-//    private static void provjeraDuplikataKontaktiranihOsoba(Osoba odabranaUnesenaKontaktiranaOsoba, List<Osoba> odabraneUneseneKontaktiraneOsobe) throws DuplikatKontaktiraneOsobe {
-//
-//        // (Provjera duplikata) Provjera postojanosti Odabrane Kontaktirane Osobe u prethodno Odabranim Kontaktiranim Osobama
-//
-//        if (odabraneUneseneKontaktiraneOsobe.contains(odabranaUnesenaKontaktiranaOsoba)) {
-//
-//            System.out.println("Osoba je već odabrana, molimo ponovno unesite!");
-//
-//            throw new DuplikatKontaktiraneOsobe("Prilikom unosa odabira kontaktirane osobe, unesena je prethodno odabrana osoba (duplikat)");
-//
-//        }
-//    }
+    /**
+     * Provjerava postojanost odabrane kontaktirane osobe <code>int odabranaKontaktiranaOsoba</code> u polju
+     * <code>int[] odabraneUneseneKontaktiraneOsobe</code> i provjerava duplikate
+     * ako postoji duplikat baca iznimku <code>throw new DuplikatKontaktiraneOsobe("Prilikom unosa odabira kontaktirane osobe, unesena je prethodno odabrana osoba (duplikat): "
+     * + Integer.toString(odabranaKontaktiranaOsoba));</code>
+     *
+     * @param odabranaUnesenaKontaktiranaOsoba unesena odabrana kontaktirana osoba
+     * @param odabraneUneseneKontaktiraneOsobe polje prethodno odabranih kontaktiranih osoba
+     * @throws DuplikatKontaktiraneOsobe iznimka koja se baca u slučaju kada su uneseni duplikati
+     */
+
+    private static void provjeraDuplikataKontaktiranihOsoba(Osoba odabranaUnesenaKontaktiranaOsoba, List<Osoba> odabraneUneseneKontaktiraneOsobe) throws DuplikatKontaktiraneOsobe {
+
+        // (Provjera duplikata) Provjera postojanosti Odabrane Kontaktirane Osobe u prethodno Odabranim Kontaktiranim Osobama
+
+        if (odabraneUneseneKontaktiraneOsobe.contains(odabranaUnesenaKontaktiranaOsoba)) {
+
+            System.out.println("Osoba je već odabrana, molimo ponovno unesite!");
+
+            throw new DuplikatKontaktiraneOsobe("Prilikom unosa odabira kontaktirane osobe, unesena je prethodno odabrana osoba (duplikat)");
+
+        }
+    }
 
 }
