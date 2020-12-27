@@ -31,11 +31,11 @@ public class Main extends Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-    static SortedSet<Zupanija> zupanije = new TreeSet<>(new CovidSorter());
-    static Set<Simptom> simptomi = new HashSet<>();
-    static Set<Bolest> bolesti = new HashSet<>();
-    static List<Osoba> osobe = new ArrayList<>();
-    static Map<Bolest, List<Osoba>> osobeZarazeneVirusima = new HashMap<>();
+//    static SortedSet<Zupanija> zupanije = new TreeSet<>(new CovidSorter());
+//    static Set<Simptom> simptomi = new HashSet<>();
+//    static Set<Bolest> bolesti = new HashSet<>();
+//    static List<Osoba> osobe = new ArrayList<>();
+//    static Map<Bolest, List<Osoba>> osobeZarazeneVirusima = new HashMap<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -52,47 +52,47 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-
-        // Unos Zupanija
-
-        unosZupanija(input, zupanije);
-
-        // Unos Simptoma
-
-        unosSimptoma(input, simptomi);
-
-        // Unos Bolesti
-
-        unosBolesti(input, simptomi, bolesti);
-
-        // Unos osoba
-
-        unosOsoba(input, zupanije, bolesti, osobe);
-
-        // Populacija Mape OsobeZarazeneVirusima
-
-        populacijaMapeOsobeZarazeneVirusima(osobe, osobeZarazeneVirusima);
-
-        // Ispis osoba
-
-        ispisOsoba(osobe);
-
-        // Ispis Virusa/Bolesti i osoba koje su njima zaražene
-
-        ispisVirusaIOsobaZarazenihVirusima(osobeZarazeneVirusima);
-
-        // Ispis županije sa najviše zaraženih
-
-        ispisZupanijeSaNajviseZarazenih(zupanije);
-
-        // Izvedba pete laboratorijske vjezbe
-
-        izvedbaPetogLabosa(bolesti, osobe, input);
-
-        // Izvedba serijalizacije seste laboratorijske vjezbe
-
-        serijalizacijaSestaVjezba(zupanije);
+//        Scanner input = new Scanner(System.in);
+//
+//        // Unos Zupanija
+//
+//        unosZupanija(input, zupanije);
+//
+//        // Unos Simptoma
+//
+//        unosSimptoma(input, simptomi);
+//
+//        // Unos Bolesti
+//
+//        unosBolesti(input, simptomi, bolesti);
+//
+//        // Unos osoba
+//
+//        unosOsoba(input, zupanije, bolesti, osobe);
+//
+//        // Populacija Mape OsobeZarazeneVirusima
+//
+//        populacijaMapeOsobeZarazeneVirusima(osobe, osobeZarazeneVirusima);
+//
+//        // Ispis osoba
+//
+//        ispisOsoba(osobe);
+//
+//        // Ispis Virusa/Bolesti i osoba koje su njima zaražene
+//
+//        ispisVirusaIOsobaZarazenihVirusima(osobeZarazeneVirusima);
+//
+//        // Ispis županije sa najviše zaraženih
+//
+//        ispisZupanijeSaNajviseZarazenih(zupanije);
+//
+//        // Izvedba pete laboratorijske vjezbe
+//
+//        izvedbaPetogLabosa(bolesti, osobe, input);
+//
+//        // Izvedba serijalizacije seste laboratorijske vjezbe
+//
+//        serijalizacijaSestaVjezba(zupanije);
 
         launch(args);
     }
@@ -723,16 +723,16 @@ public class Main extends Application {
 
                         });
 
-                        osobe.add(new Osoba.Builder(idOsobe).ime(ime).prezime(prezime).starost(starost).zupanija(zupanija)
+                        osobe.add(new Osoba.Builder(idOsobe).ime(ime).prezime(prezime).zupanija(zupanija)
                                 .zarazenBolescu(bolest).kontaktiraneOsobe(finalKontaktiraneOsobe).build());
 
                     } else {
-                        osobe.add(new Osoba.Builder(idOsobe).ime(ime).prezime(prezime).starost(starost).zupanija(zupanija)
+                        osobe.add(new Osoba.Builder(idOsobe).ime(ime).prezime(prezime).zupanija(zupanija)
                                 .zarazenBolescu(bolest).build());
                     }
 
                 } else {
-                    osobe.add(new Osoba.Builder(idOsobe).ime(ime).prezime(prezime).starost(starost).zupanija(zupanija)
+                    osobe.add(new Osoba.Builder(idOsobe).ime(ime).prezime(prezime).zupanija(zupanija)
                             .zarazenBolescu(bolest).build());
                 }
 

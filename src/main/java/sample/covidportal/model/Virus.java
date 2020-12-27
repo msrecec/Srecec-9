@@ -61,6 +61,7 @@ public class Virus extends Bolest implements Zarazno, Serializable {
     @Override
     public void prelazakZarazeNaOsobu(Osoba osoba) {
         osoba.setZarazenBolescu(new Virus(this.getId(), this.getNaziv(), this.getSimptomi()));
+//        osoba.setZarazenBolescu(this);
     }
 
     @Override

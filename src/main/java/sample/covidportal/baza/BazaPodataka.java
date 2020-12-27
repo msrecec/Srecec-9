@@ -2,6 +2,7 @@ package main.java.sample.covidportal.baza;
 
 import main.java.sample.covidportal.enumeracija.VrijednostSimptoma;
 import main.java.sample.covidportal.iznimke.BolestIstihSimptoma;
+import main.java.sample.covidportal.iznimke.DuplikatKontaktiraneOsobe;
 import main.java.sample.covidportal.iznimke.DuplikatSimptoma;
 import main.java.sample.covidportal.iznimke.ZupanijaIstogNaziva;
 import main.java.sample.covidportal.model.*;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BazaPodataka {
     private static final String DATABASE_CONFIGURATION_FILE = "src\\main\\resources\\database.properties";
@@ -462,20 +464,24 @@ public class BazaPodataka {
             osobe.add(unosOsobe(rs, veza));
         }
 
+        for(Osoba osoba : osobe) {
+            unosKontaktiranihOsoba(osoba, osobe, veza);
+        }
+
         closeConnectionToDatabase(veza);
 
         return osobe;
 
     }
 
-
-
     /**
      * Unosi osobu iz result set-a i vraca novu osobu
      *
      * @param rs set rezultata iz baze podataka
+     * @param veza veza s bazom podataka
      * @return nova osoba
      * @throws SQLException ako je greska prilikom rada s bazom
+     * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
     private static Osoba unosOsobe(ResultSet rs, Connection veza) throws SQLException, IOException {
@@ -488,30 +494,139 @@ public class BazaPodataka {
         Long bolestId = rs.getLong("BOLEST_ID");
         Zupanija zupanija = dohvatiZupaniju(zupanijaId).get();
         Bolest bolest = dohvatiBolest(bolestId).get();
-        List<Osoba> kontaktiraneOsobe = new ArrayList<>();
-        PreparedStatement upit = veza.prepareStatement("SELECT KONTAKTIRANA.ID, KONTAKTIRANA.IME, KONTAKTIRANA.PREZIME, KONTAKTIRANA.DATUM_RODJENJA,  KONTAKTIRANA.ZUPANIJA_ID, KONTAKTIRANA.BOLEST_ID\n" +
-                "FROM OSOBA\n" +
+
+        osoba = new Osoba.Builder(idOsobe).ime(imeOsobe).prezime(prezimeOsobe).datumRodjenja(date).zupanija(zupanija)
+                .zarazenBolescu(bolest).build();
+
+        return osoba;
+    }
+
+    /**
+     * Trazi kontaktirane osobe u bazi podataka i vraca listu id-a kontaktiranih osoba te pridruzuje reference
+     * osoba sa tim id-jem u listu kontaktiranih osoba od unesene osobe
+     *
+     * @param osoba osoba kojoj pridruzujemo listu kontaktiranih osoba
+     * @param osobe lista svih osoba
+     * @param veza veza s bazom podataka
+     * @throws SQLException ako je greska prilikom rada s bazom
+     */
+
+    private static void unosKontaktiranihOsoba(Osoba osoba, List<Osoba> osobe, Connection veza) throws SQLException {
+        List<Long> idKontaktiranihOsoba = new ArrayList<>();
+        List<Osoba> kontaktiraneOsobe;
+        PreparedStatement upit = veza.prepareStatement("SELECT KONTAKTIRANA.ID FROM OSOBA\n" +
                 "INNER JOIN KONTAKTIRANE_OSOBE ON\n" +
                 "OSOBA.ID = KONTAKTIRANE_OSOBE.OSOBA_ID\n" +
                 "INNER JOIN OSOBA AS KONTAKTIRANA ON\n" +
                 "KONTAKTIRANE_OSOBE.KONTAKTIRANA_OSOBA_ID = KONTAKTIRANA.ID\n" +
                 "WHERE OSOBA.ID = ?");
 
-        upit.setLong(1, idOsobe);
+        upit.setLong(1, osoba.getId());
 
         ResultSet nrs = upit.executeQuery();
 
         while(nrs.next()) {
-            Osoba kontaktiranaOsoba = unosSimptoma(nrs);
-            simptomi.add(noviSimptom);
+            Long idKontaktiraneOsobe = nrs.getLong("ID");
+            idKontaktiranihOsoba.add(idKontaktiraneOsobe);
         }
+        kontaktiraneOsobe = osobe.stream().filter(o -> idKontaktiranihOsoba.contains(o.getId())).collect(Collectors.toList());
 
-        bolest = isVirus ?
-                new Virus(idBolesti, nazivBolesti, simptomi) :
-                new Bolest(idBolesti, nazivBolesti, simptomi);
-
-        return bolest;
+        osoba.setKontaktiraneOsobe(kontaktiraneOsobe);
     }
 
+
+    /**
+     * Dohvaca osobu iz baze podataka
+     *
+     * @param idOsobe id osobe koju dohvacamo
+     * @return bolest koji dohvacamo
+     * @throws SQLException ako je greska prilikom rada s bazom
+     * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
+     */
+
+    public static Optional<Osoba> dohvatiOsobu(Long idOsobe) throws SQLException, IOException {
+        Optional<Osoba> osoba;
+        Connection veza = connectToDatabase();
+        PreparedStatement upit = veza.prepareStatement("SELECT * FROM OSOBA WHERE ID = ?");
+
+        upit.setString(1, String.valueOf(idOsobe));
+
+        ResultSet rs = upit.executeQuery();
+
+        if(rs.next()) {
+            osoba = Optional.of(unosOsobe(rs, veza));
+        } else {
+            osoba = Optional.ofNullable(null);
+        }
+
+        closeConnectionToDatabase(veza);
+
+        return osoba;
+    }
+
+
+
+    /**
+     * Sprema novu osobu u bazu podataka
+     *
+     * @param osoba nova osoba koji unosimo u bazu
+     * @throws SQLException ako je greska prilikom rada s bazom
+     * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
+     * @throws DuplikatKontaktiraneOsobe ako se u bazi nalazi bolest koja ima iste simptome
+     */
+
+    public static void spremiNovuOsobu(Osoba osoba) throws DuplikatKontaktiraneOsobe, IOException, SQLException {
+        Connection veza = connectToDatabase();
+
+        // Provjera duplikata
+
+        Long sumaIdKontaktiranihOsoba = osoba.getKontaktiraneOsobe().stream().map(s->s.getId()).reduce((long) 0, (s1, s2) -> s1+s2);
+
+        PreparedStatement upit = veza.prepareStatement("SELECT OSOBA_ID, SUM(KONTAKTIRANA_OSOBA_ID) FROM KONTAKTIRANE_OSOBE\n" +
+                "GROUP BY OSOBA_ID\n" +
+                "HAVING SUM(KONTAKTIRANA_OSOBA_ID) = ?");
+
+        upit.setLong(1, sumaIdKontaktiranihOsoba);
+
+        ResultSet rs = upit.executeQuery();
+
+        if(rs.next()) {
+            closeConnectionToDatabase(veza);
+            throw new DuplikatKontaktiraneOsobe();
+        }
+
+        // Spremanje Osobe u Bazu podataka
+
+        veza.setAutoCommit(false);
+
+        upit = veza.prepareStatement("INSERT INTO OSOBA(IME, PREZIME, DATUM_RODJENJA, ZUPANIJA_ID, BOLEST_ID) VALUES (?, ?, ?, ?, ?)");
+
+        upit.setString(1, osoba.getIme());
+        upit.setString(2, osoba.getPrezime());
+        upit.setDate(3, osoba.getDatumRodjenja());
+        upit.setLong(4, osoba.getZupanija().getId());
+        upit.setLong(5, osoba.getZarazenBolescu().getId());
+
+        upit.executeUpdate();
+
+        List<Osoba> kontaktiraneOsobe = osoba.getKontaktiraneOsobe();
+
+        for(Osoba o : kontaktiraneOsobe) {
+
+            upit = veza.prepareStatement("INSERT INTO KONTAKTIRANE_OSOBE(OSOBA_ID, KONTAKTIRANA_OSOBA_ID) VALUES (?, ?)");
+
+            upit.setLong(1, osoba.getId());
+            upit.setLong(2, o.getId());
+
+            upit.executeUpdate();
+        }
+
+        veza.commit();
+
+        veza.setAutoCommit(true);
+
+        closeConnectionToDatabase(veza);
+
+    }
 
 }
