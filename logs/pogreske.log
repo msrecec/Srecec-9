@@ -11063,3 +11063,173 @@ INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?) [23505-199]
 2020-12-28 16:21:27,791 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:41] Unesen je simptom: Novi
 2020-12-28 16:21:42,051 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:41] Unesen je simptom: Novi
 2020-12-28 16:23:52,207 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:41] Unesen je simptom: qwe
+2020-12-28 17:14:49,127 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 19:47:29,776 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "1,2"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 19:48:02,393 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "1,2"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 19:53:18,214 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, 2]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 19:53:24,371 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, 3]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 19:54:45,785 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, 2]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 19:56:00,362 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 19:57:24,845 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, 2]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:01:33,703 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, 2]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:02:20,657 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:03:17,629 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:07:12,820 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:10:40,171 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:11:16,195 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:11:23,508 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, 2]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:11:48,894 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:13:05,481 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:18:25,708 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:18:35,481 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, 2]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:21:16,638 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:24:30,272 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:25:17,634 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:26:07,163 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:26:14,121 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, 3]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?)
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:28:19,283 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Syntax error in SQL statement "SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN ?[*]
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ?"; expected "("; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN ?
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [42001-199]
+2020-12-28 20:29:04,190 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[2]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?) 
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:32:50,519 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?) 
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:39:22,553 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?) 
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:45:46,925 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?) 
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:45:53,196 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1, ,, 2]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?) 
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:46:34,648 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Data conversion error converting "[1]"; SQL statement:
+SELECT BOLEST_ID, SUM(SIMPTOM_ID) AS SUMA, COUNT(SIMPTOM_ID) AS BROJ FROM BOLEST_SIMPTOM
+WHERE SIMPTOM_ID IN (?) 
+GROUP BY BOLEST_ID
+HAVING SUMA = ? AND BROJ = ? [22018-199]
+2020-12-28 20:55:28,704 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 20:55:34,455 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena je bolest: fs
+2020-12-28 20:58:41,414 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 21:52:21,453 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena je bolest: awd
+2020-12-28 21:56:22,896 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena je bolest: das
+2020-12-28 21:59:09,185 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 21:59:17,941 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena je bolest: nova
+2020-12-28 21:59:22,366 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 22:13:40,246 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Parameter "#2" is not set [90012-199]
+2020-12-28 22:14:05,086 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 22:14:09,473 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:58] Unesena je bolest: NN
+2020-12-28 22:14:46,214 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 22:14:49,646 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:58] Unesena je bolest: TG
+2020-12-28 22:15:03,336 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 22:15:06,788 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Simptom ne postoji!
+2020-12-28 22:15:11,229 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:58] Unesena je bolest: awd

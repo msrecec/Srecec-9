@@ -268,29 +268,42 @@ public class BazaPodataka implements VrijednostEnumeracije {
      * @throws BolestIstihSimptoma ako se u bazi nalazi bolest koja ima iste simptome
      */
 
-    public static void spremiNovuBolest(Bolest bolest) throws BolestIstihSimptoma, IOException, SQLException {
+    public static void spremiNovuBolest(Bolest bolest) throws BolestIstihSimptoma, IOException, SQLException, NepostojecaBolest {
         Connection veza = connectToDatabase();
         ResultSet nrs;
         long idNovoSpremljeneBolesti;
+        ResultSet rs;
 
         // Provjera duplikata
 
         Long sumaIdSimptoma = bolest.getSimptomi().stream().map(s->s.getId()).reduce((long) 0, (s1, s2) -> s1+s2);
+        Integer brojSimptoma = bolest.getSimptomi().size();
 
-        PreparedStatement upit = veza.prepareStatement("SELECT BOLEST_ID, SUM(SIMPTOM_ID) FROM BOLEST_SIMPTOM\n" +
+
+        PreparedStatement preparedStatement = veza.prepareStatement("SELECT BOLEST_ID FROM BOLEST_SIMPTOM\n" +
                 "GROUP BY BOLEST_ID\n" +
-                "HAVING SUM(SIMPTOM_ID) = ?");
+                "HAVING SUM(SIMPTOM_ID) = ? AND COUNT(SIMPTOM_ID)  = ?");
 
-        upit.setLong(1, sumaIdSimptoma);
+        preparedStatement.setLong(1, sumaIdSimptoma);
+        preparedStatement.setInt(2, brojSimptoma);
 
-        ResultSet rs = upit.executeQuery();
+        rs = preparedStatement.executeQuery();
 
-        if(rs.next()) {
-            closeConnectionToDatabase(veza);
-            throw new BolestIstihSimptoma();
+        Long idDohvaceneVrijednosti;
+        Bolest dohvacenaBolest;
+
+        while(rs.next()) {
+            idDohvaceneVrijednosti = rs.getLong("BOLEST_ID");
+            dohvacenaBolest = BazaPodataka.dohvatiBolest(idDohvaceneVrijednosti);
+            if(dohvacenaBolest.getSimptomi().equals(bolest.getSimptomi())) {
+                closeConnectionToDatabase(veza);
+                throw new BolestIstihSimptoma();
+            }
         }
 
         // Spremanje Bolesti/Virusa u Bazu podataka
+
+        PreparedStatement upit;
 
         veza.setAutoCommit(false);
 

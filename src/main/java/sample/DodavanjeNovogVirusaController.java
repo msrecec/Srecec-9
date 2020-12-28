@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.java.sample.covidportal.baza.BazaPodataka;
 import main.java.sample.covidportal.iznimke.BolestIstihSimptoma;
+import main.java.sample.covidportal.iznimke.NepostojecaBolest;
 import main.java.sample.covidportal.iznimke.NepostojeciSimptom;
 import main.java.sample.covidportal.iznimke.PraznoPolje;
 import main.java.sample.covidportal.model.Simptom;
@@ -59,7 +60,7 @@ public class DodavanjeNovogVirusaController {
 
             PocetniEkranController.uspjesanUnos();
 
-        } catch (IOException | PraznoPolje | NumberFormatException | BolestIstihSimptoma | SQLException | NepostojeciSimptom e) {
+        } catch (IOException | PraznoPolje | NumberFormatException | BolestIstihSimptoma | SQLException | NepostojeciSimptom | NepostojecaBolest e) {
             logger.error(e.getMessage());
             PocetniEkranController.neuspjesanUnos(e.getMessage());
         }
