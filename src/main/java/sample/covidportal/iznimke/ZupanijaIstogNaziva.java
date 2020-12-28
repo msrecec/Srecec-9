@@ -7,7 +7,7 @@ package main.java.sample.covidportal.iznimke;
  * @version 1.0
  */
 
-public class ZupanijaIstogNaziva extends Exception {
+public class ZupanijaIstogNaziva extends RuntimeException {
 
     /**
      * Instancira objekt klase <code>ZupanijaIstogNaziva</code> i šalje vrijednost stringa konstruktoru nadklase

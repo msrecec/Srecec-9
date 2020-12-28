@@ -11233,3 +11233,17 @@ HAVING SUMA = ? AND BROJ = ? [22018-199]
 2020-12-28 22:15:03,336 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Unesena bolest ima iste simptome kao prethodno unesena bolest!
 2020-12-28 22:15:06,788 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Simptom ne postoji!
 2020-12-28 22:15:11,229 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:58] Unesena je bolest: awd
+2020-12-28 22:21:41,340 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveZupanijeController [DodavanjeNoveZupanijeController.java:52] Polje je prazno!
+2020-12-28 22:21:59,877 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveZupanijeController [DodavanjeNoveZupanijeController.java:47] Unesena je zupanija: Koprivničko-križevačka
+2020-12-28 22:23:46,220 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:41] Unesen je simptom: Novi simptom
+2020-12-28 22:24:02,695 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 22:24:06,454 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:58] Unesena je bolest: Nova bolest
+2020-12-28 22:27:03,984 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:97] Ne postoji bolest za uneseni ID!
+2020-12-28 22:27:08,689 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:97] Osoba ne postoji!
+2020-12-28 22:27:15,893 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:92] Unesena je osoba: Mislav
+2020-12-28 22:53:11,354 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:63] Simptom ne postoji!
+2020-12-28 22:53:19,892 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNovogVirusaController [DodavanjeNovogVirusaController.java:64] Simptom ne postoji!
+2020-12-28 22:53:38,578 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:97] Ne postoji zupanija za uneseni ID!
+2020-12-28 22:53:41,035 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:97] Ne postoji bolest za uneseni ID!
+2020-12-28 22:53:44,031 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:97] Osoba ne postoji!
+2020-12-28 22:54:05,319 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:92] Unesena je osoba: awd
