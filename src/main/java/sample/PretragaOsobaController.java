@@ -9,16 +9,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.sample.covidportal.baza.BazaPodataka;
-import main.java.sample.covidportal.iznimke.PraznoPolje;
 import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Osoba;
-import main.java.sample.covidportal.model.Simptom;
 import main.java.sample.covidportal.model.Zupanija;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class PretragaOsobaController implements Initializable {
     @FXML
     private TableColumn<Osoba, String> prezimeStupac;
     @FXML
-    private TableColumn<Osoba, Integer> starostStupac;
+    private TableColumn<Osoba, Date> datumRodjenjaStupac;
     @FXML
     private TableColumn<Osoba, Zupanija> zupanijaStupac;
     @FXML
@@ -85,7 +84,7 @@ public class PretragaOsobaController implements Initializable {
 
             imeStupac.setCellValueFactory(new PropertyValueFactory<Osoba, String>("ime"));
             prezimeStupac.setCellValueFactory(new PropertyValueFactory<Osoba, String>("prezime"));
-            starostStupac.setCellValueFactory(new PropertyValueFactory<Osoba, Integer>("starost"));
+            datumRodjenjaStupac.setCellValueFactory(new PropertyValueFactory<Osoba, Date>("datumRodjenja"));
             zupanijaStupac.setCellValueFactory(new PropertyValueFactory<Osoba, Zupanija>("zupanija"));
             bolestStupac.setCellValueFactory(new PropertyValueFactory<Osoba, Bolest>("zarazenBolescu"));
             kontaktiraneOsobeStupac.setCellValueFactory(new PropertyValueFactory<Osoba, List<Osoba>>("kontaktiraneOsobe"));
