@@ -50,7 +50,7 @@
         <columns>
             <TableColumn fx:id="imeStupac" prefWidth="97.0" text="Ime" />
             <TableColumn fx:id="prezimeStupac" maxWidth="1.7976931348623157E308" prefWidth="113.0" text="Prezime" />
-            <TableColumn fx:id="starostStupac" prefWidth="52.0" text="Starost" />
+            <TableColumn fx:id="datumRodjenjaStupac" prefWidth="52.0" text="Datum rođenja" />
             <TableColumn fx:id="zupanijaStupac" prefWidth="146.0" text="Županija" />
             <TableColumn fx:id="bolestStupac" prefWidth="97.0" text="Bolest" />
             <TableColumn fx:id="kontaktiraneOsobeStupac" prefWidth="294.0" text="Kontaktirane Osobe" />

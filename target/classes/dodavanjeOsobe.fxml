@@ -65,8 +65,8 @@
                 <Insets right="5.0" />
             </GridPane.margin>
         </TextField>
-        <Label layoutX="134.0" layoutY="203.0" text="Starost osobe:" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
-        <TextField fx:id="starostOsobe" layoutX="236.0" layoutY="199.0" prefHeight="25.0" prefWidth="537.0" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+        <Label layoutX="134.0" layoutY="203.0" text="Datum rođenja osobe:" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+        <TextField fx:id="datumRodjenja" layoutX="236.0" layoutY="199.0" prefHeight="25.0" prefWidth="537.0" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
             <GridPane.margin>
                 <Insets right="5.0" />
             </GridPane.margin>

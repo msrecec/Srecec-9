@@ -195,7 +195,7 @@ public class Osoba implements Serializable {
 
 
         return "Ime i prezime: " + ime + " " + prezime + "\n" +
-                "Starost: " + starostOsobe() + "\n" +
+                "Datum rođenja: " + datumRodjenja.toString() + "\n" +
                 "Županija prebivališta: " + zupanija.getNaziv() + "\n" +
                 "Zaražen bolešću: " + zarazenBolescu.getNaziv() + "\n" +
                 "Kontaktirane osobe: \n" + ispisKontaktiranihOsoba;
@@ -233,17 +233,6 @@ public class Osoba implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getIme(), getPrezime(), getDatumRodjenja(), getZupanija(), getZarazenBolescu(), getKontaktiraneOsobe());
-    }
-
-    public int starostOsobe() {
-        if((datumRodjenja != null) && (LocalDate.now() != null)) {
-            ZoneId zone = ZoneId.systemDefault();
-            Instant instant = datumRodjenja.toInstant();
-            LocalDate localDate = instant.atZone(zone).toLocalDate();
-            return Period.between(localDate, LocalDate.now()).getYears();
-        } else {
-            return 0;
-        }
     }
 
 
@@ -308,7 +297,7 @@ public class Osoba implements Serializable {
     }
 
     /**
-     * Vraća starost osobe
+     * Vraća datum rođenja osobe
      *
      * @return datumRodjenja
      */
@@ -318,7 +307,7 @@ public class Osoba implements Serializable {
     }
 
     /**
-     * Postavlja starost osobe
+     * Postavlja datum rođenja osobe
      *
      * @param datumRodjenja
      */

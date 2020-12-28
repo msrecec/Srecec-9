@@ -14,10 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DodavanjeNovogVirusaController {
@@ -31,7 +28,7 @@ public class DodavanjeNovogVirusaController {
     @FXML
     private TextField simptomi;
 
-    public void dodajNovuBolest() {
+    public void dodajNoviVirus() {
         try {
             String nazivVirusaText = nazivVirusa.getText();
             String simptomiText = simptomi.getText();
@@ -52,30 +49,13 @@ public class DodavanjeNovogVirusaController {
 
             PretragaVirusiController.setVirusi(virusi);
 
+            PretragaVirusiController.getObservableListaVirusa().addAll(PretragaVirusiController.getVirusi());
 
-            PretragaBolestiController.getObservableListaBolesti().addAll(PretragaBolestiController.getBolesti().stream().filter(z -> ((z instanceof Virus))).collect(Collectors.toList()));
+            List<Long> indexList =  Arrays.stream(simptomiText.split(",")).map(e -> Long.parseLong(e)).collect(Collectors.toList());
 
-            Arrays.stream(simptomiText.split(",")).forEach(el -> {
-
-                // Iteracija simptoma po indeksu
-
-                int element = Integer.parseInt(el);
-
-                Simptom simptom;
-
-                Iterator<Simptom> iteratorSimptoma = PretragaSimptomaController.getSimptomi().iterator();
-                Simptom pronadeniOdabraniSimptom = null;
-
-                for (int k = 0; k < PretragaSimptomaController.getSimptomi().size() && iteratorSimptoma.hasNext(); ++k) {
-                    simptom = iteratorSimptoma.next();
-                    if (simptom.getId() == (element)) {
-                        pronadeniOdabraniSimptom = simptom;
-                        PretragaSimptomaController.getSimptomi().add(pronadeniOdabraniSimptom);
-                    }
-                }
-
-
-            } );
+            for(Long i : indexList) {
+                simptomi.add(BazaPodataka.dohvatiSimptom(i).get());
+            }
 
             Virus noviVirus = new Virus((long)1, nazivVirusaText, simptomi);
 

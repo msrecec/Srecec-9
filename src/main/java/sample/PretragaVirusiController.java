@@ -70,7 +70,7 @@ public class PretragaVirusiController implements Initializable {
         try {
             virusi = BazaPodataka.dohvatiSveBolesti();
 
-            observableListaVirusa.addAll(virusi.stream().filter(z -> (!(z instanceof Virus))).collect(Collectors.toList()));
+            observableListaVirusa.addAll(virusi.stream().filter(z -> ((z instanceof Virus))).collect(Collectors.toList()));
 
             nazivStupac.setCellValueFactory(new PropertyValueFactory<Bolest, String>("naziv"));
             simptomiStupac.setCellValueFactory(new PropertyValueFactory<Set<Simptom>, String>("simptomi"));

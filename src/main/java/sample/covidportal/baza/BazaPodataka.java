@@ -145,7 +145,7 @@ public class BazaPodataka {
         PreparedStatement upit = veza.prepareStatement("SELECT * FROM SIMPTOM WHERE NAZIV = ? AND VRIJEDNOST = ?");
 
         upit.setString(1, simptom.getNaziv());
-        upit.setString(1, simptom.getVrijednost().getVrijednost());
+        upit.setString(2, simptom.getVrijednost().getVrijednost());
 
         ResultSet rs = upit.executeQuery();
 
@@ -185,7 +185,7 @@ public class BazaPodataka {
         Set<Bolest> bolesti = new HashSet<>();
         Connection veza = connectToDatabase();
         Statement stmt = veza.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM BOLESTI");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM BOLEST");
 
         while(rs.next()) {
             bolesti.add(unosBolesti(rs, veza));
@@ -277,6 +277,8 @@ public class BazaPodataka {
 
     public static void spremiNovuBolest(Bolest bolest) throws BolestIstihSimptoma, IOException, SQLException {
         Connection veza = connectToDatabase();
+        ResultSet nrs;
+        long idNovoSpremljeneBolesti;
 
         // Provjera duplikata
 
@@ -306,13 +308,29 @@ public class BazaPodataka {
 
         upit.executeUpdate();
 
+        veza.commit();
+
+
+        upit = veza.prepareStatement("SELECT ID FROM BOLEST WHERE NAZIV = ? AND VIRUS = ?");
+
+        upit.setString(1, bolest.getNaziv());
+        upit.setBoolean(2, bolest instanceof Virus);
+
+        nrs = upit.executeQuery();
+
+        if(nrs.next()) {
+            idNovoSpremljeneBolesti = nrs.getLong("ID");
+        } else {
+            idNovoSpremljeneBolesti = 1;
+        }
+
         Set<Simptom> simptomi = bolest.getSimptomi();
 
         for(Simptom simptom : simptomi) {
 
             upit = veza.prepareStatement("INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?)");
 
-            upit.setLong(1, bolest.getId());
+            upit.setLong(1, idNovoSpremljeneBolesti);
             upit.setLong(2, simptom.getId());
 
             upit.executeUpdate();
@@ -338,7 +356,7 @@ public class BazaPodataka {
         SortedSet<Zupanija> zupanije = new TreeSet<>(new CovidSorter());
         Connection veza = connectToDatabase();
         Statement stmt = veza.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM ZUPANIJE");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM ZUPANIJA");
 
         while(rs.next()) {
             zupanije.add(unosZupanije(rs));
@@ -433,7 +451,7 @@ public class BazaPodataka {
 
         upit.setString(1, zupanija.getNaziv());
         upit.setInt(2, zupanija.getBrojStanovnika());
-        upit.setInt(2, zupanija.getBrojZarazenih());
+        upit.setInt(3, zupanija.getBrojZarazenih());
 
         upit.executeUpdate();
 
@@ -458,7 +476,7 @@ public class BazaPodataka {
         List<Osoba> osobe = new ArrayList<>();
         Connection veza = connectToDatabase();
         Statement stmt = veza.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM OSOBE");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM OSOBA");
 
         while(rs.next()) {
             osobe.add(unosOsobe(rs, veza));
@@ -577,6 +595,7 @@ public class BazaPodataka {
 
     public static void spremiNovuOsobu(Osoba osoba) throws DuplikatKontaktiraneOsobe, IOException, SQLException {
         Connection veza = connectToDatabase();
+        ResultSet nrs;
 
         // Provjera duplikata
 
@@ -609,13 +628,33 @@ public class BazaPodataka {
 
         upit.executeUpdate();
 
+        veza.commit();
+
+        long idNovoSpremljeneOsobe;
+
+        upit = veza.prepareStatement("SELECT ID FROM OSOBA WHERE IME = ? AND PREZIME = ? AND DATUM_RODJENJA = ? AND ZUPANIJA_ID = ? AND BOLEST_ID = ?");
+
+        upit.setString(1, osoba.getIme());
+        upit.setString(2, osoba.getPrezime());
+        upit.setDate(3, osoba.getDatumRodjenja());
+        upit.setLong(4, osoba.getZupanija().getId());
+        upit.setLong(5, osoba.getZarazenBolescu().getId());
+
+        nrs = upit.executeQuery();
+
+        if(nrs.next()) {
+            idNovoSpremljeneOsobe = nrs.getLong("ID");
+        } else {
+            idNovoSpremljeneOsobe = 1;
+        }
+
         List<Osoba> kontaktiraneOsobe = osoba.getKontaktiraneOsobe();
 
         for(Osoba o : kontaktiraneOsobe) {
 
             upit = veza.prepareStatement("INSERT INTO KONTAKTIRANE_OSOBE(OSOBA_ID, KONTAKTIRANA_OSOBA_ID) VALUES (?, ?)");
 
-            upit.setLong(1, osoba.getId());
+            upit.setLong(1, idNovoSpremljeneOsobe);
             upit.setLong(2, o.getId());
 
             upit.executeUpdate();

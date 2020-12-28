@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.java.sample.covidportal.baza.BazaPodataka;
+import main.java.sample.covidportal.iznimke.DuplikatKontaktiraneOsobe;
 import main.java.sample.covidportal.iznimke.PraznoPolje;
 import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Osoba;
@@ -126,6 +127,8 @@ public class DodavanjeNoveOsobeController {
                     .kontaktiraneOsobe(finalKontaktiraneOsobe)
                     .build();
 
+            BazaPodataka.spremiNovuOsobu(novaOsoba);
+
             if (PretragaOsobaController.getOsobe() == null) {
                 PretragaOsobaController.setOsobe(new ArrayList<>());
             }
@@ -139,7 +142,7 @@ public class DodavanjeNoveOsobeController {
 
             PocetniEkranController.uspjesanUnos();
 
-        } catch (IOException | PraznoPolje | NumberFormatException | SQLException ex) {
+        } catch (IOException | PraznoPolje | NumberFormatException | SQLException | DuplikatKontaktiraneOsobe ex) {
             logger.error(ex.getMessage());
             PocetniEkranController.neuspjesanUnos(ex.getMessage());
         }

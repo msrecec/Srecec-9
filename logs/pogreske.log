@@ -11004,3 +11004,23 @@ main.java.sample.covidportal.iznimke.BolestIstihSimptoma: Uneseni simptomi su du
 2020-12-26 16:26:26,001 INFO [main] m.j.s.Main [Main.java:751] Unesen je id osobe: 3
 2020-12-26 16:26:26,001 INFO [main] m.j.s.Main [Main.java:755] Unesen je ime osobe: Marica
 2020-12-26 16:26:26,001 INFO [main] m.j.s.Main [Main.java:759] Unesen je prezime osobe: Ždrerić
+2020-12-28 01:46:58,255 ERROR [JavaFX Application Thread] m.j.s.PretragaZupanijaController [PretragaZupanijaController.java:77] Table "ZUPANIJE" not found; SQL statement:
+SELECT * FROM ZUPANIJE [42102-199]
+2020-12-28 02:04:26,736 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNovogVirusaController [DodavanjeNovogVirusaController.java:99] Unique index or primary key violation: "PUBLIC.PRIMARY_KEY_4 ON PUBLIC.BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES 2"; SQL statement:
+INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?) [23505-199]
+2020-12-28 02:04:38,221 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNovogVirusaController [DodavanjeNovogVirusaController.java:99] Unique index or primary key violation: "PUBLIC.PRIMARY_KEY_4 ON PUBLIC.BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES 2"; SQL statement:
+INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?) [23505-199]
+2020-12-28 02:04:46,885 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNovogVirusaController [DodavanjeNovogVirusaController.java:99] Timeout trying to lock table {0}; SQL statement:
+INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?) [50200-199]
+2020-12-28 02:05:04,611 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:98] Unique index or primary key violation: "PUBLIC.PRIMARY_KEY_4 ON PUBLIC.BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES 2"; SQL statement:
+INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?) [23505-199]
+2020-12-28 02:05:46,826 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveZupanijeController [DodavanjeNoveZupanijeController.java:62] Parameter "#3" is not set [90012-199]
+2020-12-28 02:05:57,088 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveZupanijeController [DodavanjeNoveZupanijeController.java:62] Parameter "#3" is not set [90012-199]
+2020-12-28 02:08:05,915 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveZupanijeController [DodavanjeNoveZupanijeController.java:57] Unesena je zupanija: Koprivničko-križevačka
+2020-12-28 02:09:22,169 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:62] Parameter "#2" is not set [90012-199]
+2020-12-28 02:09:57,145 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:57] Unesen je simptom: Novi Simptom
+2020-12-28 02:10:40,673 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:98] Unique index or primary key violation: "PUBLIC.PRIMARY_KEY_4 ON PUBLIC.BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES 1"; SQL statement:
+INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?) [23505-199]
+2020-12-28 02:10:44,329 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:98] Polje je prazno!
+2020-12-28 02:10:47,265 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:98] Polje je prazno!
+2020-12-28 02:25:09,180 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:93] Unesena je bolest: Nova
