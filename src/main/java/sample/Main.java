@@ -5,14 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Main extends Application {
 
     private static Stage mainStage;
-
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception{

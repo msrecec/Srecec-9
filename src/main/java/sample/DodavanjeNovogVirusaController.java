@@ -1,13 +1,11 @@
 package main.java.sample;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.java.sample.covidportal.baza.BazaPodataka;
 import main.java.sample.covidportal.iznimke.BolestIstihSimptoma;
 import main.java.sample.covidportal.iznimke.NepostojeciSimptom;
 import main.java.sample.covidportal.iznimke.PraznoPolje;
-import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Simptom;
 import main.java.sample.covidportal.model.Virus;
 import org.slf4j.Logger;
@@ -15,7 +13,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DodavanjeNovogVirusaController {

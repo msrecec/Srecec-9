@@ -1,6 +1,5 @@
 package main.java.sample;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.java.sample.covidportal.baza.BazaPodataka;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.SortedSet;
 
 public class DodavanjeNoveZupanijeController {
 

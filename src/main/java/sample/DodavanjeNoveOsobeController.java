@@ -1,23 +1,21 @@
 package main.java.sample;
 
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.java.sample.covidportal.baza.BazaPodataka;
 import main.java.sample.covidportal.iznimke.*;
 import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Osoba;
-import main.java.sample.covidportal.model.Simptom;
 import main.java.sample.covidportal.model.Zupanija;
-import main.java.sample.covidportal.sort.CovidSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class DodavanjeNoveOsobeController {
