@@ -1,22 +1,19 @@
 package main.java.sample;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import main.java.sample.covidportal.baza.BazaPodataka;
 import main.java.sample.covidportal.enumeracija.VrijednostSimptoma;
+import main.java.sample.covidportal.iznimke.DuplikatSimptoma;
+import main.java.sample.covidportal.iznimke.PraznoPolje;
 import main.java.sample.covidportal.model.Simptom;
-import main.java.sample.covidportal.model.Zupanija;
-import main.java.sample.covidportal.sort.CovidSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.TreeSet;
 
 public class DodavanjeNovogSimptomaController {
 
@@ -29,15 +26,16 @@ public class DodavanjeNovogSimptomaController {
     private TextField vrijednostSimptoma;
 
     public void dodajNoviSimptom() {
-        File unosSimptoma = new File("dat/simptomi.txt");
-        try (
-                FileWriter filewriter = new FileWriter(unosSimptoma, true);
-                BufferedWriter writer = new BufferedWriter(filewriter);
-        ) {
+        try {
+
             String nazivSimptomaText = nazivSimptoma.getText();
             String vrijednostSimptomaText = vrijednostSimptoma.getText();
 
-            Simptom noviSimptom = new Simptom((long) (Main.simptomi.size() + 1), nazivSimptomaText,
+            if(nazivSimptomaText.isBlank() || vrijednostSimptomaText.isBlank()) {
+                throw new PraznoPolje();
+            }
+
+            Simptom noviSimptom = new Simptom((long) 1, nazivSimptomaText,
                     vrijednostSimptomaText.equals(VrijednostSimptoma.RIJETKO.getVrijednost()) ?
                             VrijednostSimptoma.RIJETKO :
                             vrijednostSimptoma.equals(VrijednostSimptoma.SREDNJE.getVrijednost()) ?
@@ -45,29 +43,23 @@ public class DodavanjeNovogSimptomaController {
                                     VrijednostSimptoma.CESTO
             );
 
-    //        Zupanija novaZupanija = new Zupanija((long) (Main.simptomi.size() + 1), nazivSimptomaText, vrijednostSimptomaText);
+            BazaPodataka.spremiNoviSimptom(noviSimptom);
 
-            if (Main.simptomi == null) {
-                Main.simptomi = new HashSet<>();
+            if (PretragaSimptomaController.getSimptomi() == null) {
+                PretragaSimptomaController.setSimptomi(new HashSet<>());
             }
-            Main.simptomi.add(noviSimptom);
+            PretragaSimptomaController.getSimptomi().add(noviSimptom);
 
             PretragaSimptomaController.setObservableListaSimptoma(FXCollections.observableArrayList());
 
-            PretragaSimptomaController.getObservableListaSimptoma().addAll(Main.simptomi);
-
-            writer.write(noviSimptom.getId().toString()+"\n");
-            writer.write(noviSimptom.getNaziv()+"\n");
-            writer.write(noviSimptom.getVrijednost().toString()+"\n");
+            PretragaSimptomaController.getObservableListaSimptoma().addAll(PretragaSimptomaController.getSimptomi());
 
             logger.info("Unesen je simptom: " + noviSimptom.getNaziv());
 
             PocetniEkranController.uspjesanUnos();
 
-        } catch (IOException ex) {
-            logger.error("Ne mogu pronaci datoteku.", ex);
-            PocetniEkranController.neuspjesanUnos(ex.getMessage());
-        } catch (NumberFormatException exc) {
+        } catch (NumberFormatException | PraznoPolje | DuplikatSimptoma | IOException | SQLException exc) {
+            logger.error(exc.getMessage());
             PocetniEkranController.neuspjesanUnos(exc.getMessage());
         }
     }

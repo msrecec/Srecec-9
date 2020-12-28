@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumnBase;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -51,40 +50,33 @@ public class PretragaZupanijaController implements Initializable {
                 .filter(z -> z.getNaziv().toLowerCase().contains(uneseniNazivZupanije))
                 .collect(Collectors.toList())
         );
-//        System.out.println(filtriraneZupanije.get(0).getNaziv());
 
         if(filtriraneZupanije.isPresent()) {
-//            nazivStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, String>("naziv"));
-//            stanovniciStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, Integer>("brojStanovnika"));
-//            zarazeniStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, Integer>("brojZarazenih"));
 
             tablicaZupanija.getItems().setAll(filtriraneZupanije.get());
         }
-
-
-//        tablicaZupanija.setItems(FXCollections.observableArrayList(filtriraneZupanije));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        zupanije = new TreeSet<>(new CovidSorter());
         observableListaZupanija = FXCollections.observableArrayList();
         try {
             zupanije = BazaPodataka.dohvatiSveZupanije();
             observableListaZupanija.addAll(zupanije);
-        } catch (SQLException throwables) {
+
+            nazivStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, String>("naziv"));
+            stanovniciStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, Integer>("brojStanovnika"));
+            zarazeniStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, Integer>("brojZarazenih"));
+            idStupac.setCellValueFactory(new PropertyValueFactory<Long, String>("id"));
+
+            tablicaZupanija.setItems(observableListaZupanija);
+
+
+        } catch (SQLException | IOException throwables) {
             logger.error(throwables.getMessage());
             PocetniEkranController.neuspjesanUnos(throwables.getMessage());
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-            PocetniEkranController.neuspjesanUnos(e.getMessage());
         }
-
-        nazivStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, String>("naziv"));
-        stanovniciStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, Integer>("brojStanovnika"));
-        zarazeniStupac.setCellValueFactory(new PropertyValueFactory<Zupanija, Integer>("brojZarazenih"));
-        idStupac.setCellValueFactory(new PropertyValueFactory<Long, String>("id"));
-
-        tablicaZupanija.setItems(observableListaZupanija);
     }
 
     public static ObservableList<Zupanija> getObservableListaZupanija() {
@@ -93,5 +85,13 @@ public class PretragaZupanijaController implements Initializable {
 
     public static void setObservableListaZupanija(ObservableList<Zupanija> observableListaZupanija) {
         PretragaZupanijaController.observableListaZupanija = observableListaZupanija;
+    }
+
+    public static SortedSet<Zupanija> getZupanije() {
+        return zupanije;
+    }
+
+    public static void setZupanije(SortedSet<Zupanija> zupanije) {
+        PretragaZupanijaController.zupanije = zupanije;
     }
 }

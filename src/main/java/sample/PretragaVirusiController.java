@@ -8,17 +8,25 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.java.sample.covidportal.baza.BazaPodataka;
+import main.java.sample.covidportal.iznimke.PraznoPolje;
 import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Simptom;
 import main.java.sample.covidportal.model.Virus;
-import main.java.sample.covidportal.model.Zupanija;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class PretragaVirusiController implements Initializable {
+
+    private static Set<Bolest> virusi;
+
+    private static final Logger logger = LoggerFactory.getLogger(PretragaBolestiController.class);
 
     private static ObservableList<Bolest> observableListaVirusa;
 
@@ -33,38 +41,46 @@ public class PretragaVirusiController implements Initializable {
     @FXML
     private TextField unosNazivaVirusa;
 
-    public void pretraga() throws IOException {
+    public void pretraga() throws PraznoPolje {
+        if(unosNazivaVirusa.getText().isBlank()) {
+            throw new PraznoPolje();
+        }
+
         String uneseniNazivVirusa = unosNazivaVirusa.getText().toLowerCase();
 
         Optional<List<Bolest>> filtriranaBolest = Optional.ofNullable(
-                Main.bolesti
-                .stream()
-                .filter(z -> ((z instanceof Virus)) && z.getNaziv().toLowerCase().contains(uneseniNazivVirusa))
-                .collect(Collectors.toList())
+                virusi
+                        .stream()
+                        .filter(z -> ((z instanceof Virus)) && z.getNaziv().toLowerCase().contains(uneseniNazivVirusa))
+                        .collect(Collectors.toList())
         );
-//        System.out.println(filtriranaBolest.get(0).getNaziv());
 
         if(filtriranaBolest.isPresent()) {
-//            nazivStupac.setCellValueFactory(new PropertyValueFactory<Bolest, String>("naziv"));
-//            simptomiStupac.setCellValueFactory(new PropertyValueFactory<Set<Simptom>, String>("simptomi"));
 
             tablicaVirusa.getItems().setAll(filtriranaBolest.get());
+
         }
-
-
-//        tablicaZupanija.setItems(FXCollections.observableArrayList(filtriraneZupanije));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        virusi = new HashSet<>();
         observableListaVirusa = FXCollections.observableArrayList();
-        observableListaVirusa.addAll(Main.bolesti.stream().filter(z -> ((z instanceof Virus))).collect(Collectors.toList()));
 
-        nazivStupac.setCellValueFactory(new PropertyValueFactory<Bolest, String>("naziv"));
-        simptomiStupac.setCellValueFactory(new PropertyValueFactory<Set<Simptom>, String>("simptomi"));
-        idStupac.setCellValueFactory(new PropertyValueFactory<Long, String>("id"));
+        try {
+            virusi = BazaPodataka.dohvatiSveBolesti();
 
-        tablicaVirusa.setItems(observableListaVirusa);
+            observableListaVirusa.addAll(virusi.stream().filter(z -> (!(z instanceof Virus))).collect(Collectors.toList()));
+
+            nazivStupac.setCellValueFactory(new PropertyValueFactory<Bolest, String>("naziv"));
+            simptomiStupac.setCellValueFactory(new PropertyValueFactory<Set<Simptom>, String>("simptomi"));
+            idStupac.setCellValueFactory(new PropertyValueFactory<Long, String>("id"));
+
+            tablicaVirusa.setItems(observableListaVirusa);
+        } catch (SQLException | IOException throwables) {
+            logger.error(throwables.getMessage());
+            PocetniEkranController.neuspjesanUnos(throwables.getMessage());
+        }
 
     }
 
@@ -74,5 +90,13 @@ public class PretragaVirusiController implements Initializable {
 
     public static void setObservableListaVirusa(ObservableList<Bolest> observableListaVirusa) {
         PretragaVirusiController.observableListaVirusa = observableListaVirusa;
+    }
+
+    public static Set<Bolest> getVirusi() {
+        return virusi;
+    }
+
+    public static void setVirusi(Set<Bolest> virusi) {
+        PretragaVirusiController.virusi = virusi;
     }
 }
