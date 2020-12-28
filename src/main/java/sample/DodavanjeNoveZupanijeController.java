@@ -44,15 +44,7 @@ public class DodavanjeNoveZupanijeController {
 
             Zupanija novaZupanija = new Zupanija((long) 1, nazivZupanijeText, brojStanovnikaZupanijeNumber, brojZarazenihStanovnikaZupanijeNumber);
 
-            SortedSet<Zupanija> zupanije = BazaPodataka.dohvatiSveZupanije();
-
             BazaPodataka.spremiNovuZupaniju(novaZupanija);
-
-            PretragaZupanijaController.setObservableListaZupanija(FXCollections.observableArrayList());
-
-            PretragaZupanijaController.getObservableListaZupanija().addAll(zupanije);
-
-            PretragaZupanijaController.setZupanije(zupanije);
 
             logger.info("Unesena je zupanija: " + novaZupanija.getNaziv());
 

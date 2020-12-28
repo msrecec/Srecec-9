@@ -596,23 +596,7 @@ public class BazaPodataka {
     public static void spremiNovuOsobu(Osoba osoba) throws DuplikatKontaktiraneOsobe, IOException, SQLException {
         Connection veza = connectToDatabase();
         ResultSet nrs;
-
-        // Provjera duplikata
-
-        Long sumaIdKontaktiranihOsoba = osoba.getKontaktiraneOsobe().stream().map(s->s.getId()).reduce((long) 0, (s1, s2) -> s1+s2);
-
-        PreparedStatement upit = veza.prepareStatement("SELECT OSOBA_ID, SUM(KONTAKTIRANA_OSOBA_ID) FROM KONTAKTIRANE_OSOBE\n" +
-                "GROUP BY OSOBA_ID\n" +
-                "HAVING SUM(KONTAKTIRANA_OSOBA_ID) = ?");
-
-        upit.setLong(1, sumaIdKontaktiranihOsoba);
-
-        ResultSet rs = upit.executeQuery();
-
-        if(rs.next()) {
-            closeConnectionToDatabase(veza);
-            throw new DuplikatKontaktiraneOsobe();
-        }
+        PreparedStatement upit;
 
         // Spremanje Osobe u Bazu podataka
 

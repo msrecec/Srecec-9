@@ -45,15 +45,6 @@ public class DodavanjeNovogSimptomaController {
 
             BazaPodataka.spremiNoviSimptom(noviSimptom);
 
-            if (PretragaSimptomaController.getSimptomi() == null) {
-                PretragaSimptomaController.setSimptomi(new HashSet<>());
-            }
-            PretragaSimptomaController.getSimptomi().add(noviSimptom);
-
-            PretragaSimptomaController.setObservableListaSimptoma(FXCollections.observableArrayList());
-
-            PretragaSimptomaController.getObservableListaSimptoma().addAll(PretragaSimptomaController.getSimptomi());
-
             logger.info("Unesen je simptom: " + noviSimptom.getNaziv());
 
             PocetniEkranController.uspjesanUnos();

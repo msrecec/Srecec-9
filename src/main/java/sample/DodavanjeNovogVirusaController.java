@@ -39,17 +39,7 @@ public class DodavanjeNovogVirusaController {
 
             Set<Simptom> simptomi = BazaPodataka.dohvatiSveSimptome();
 
-            PretragaSimptomaController.setObservableListaSimptoma(FXCollections.observableArrayList());
-
-            PretragaSimptomaController.setSimptomi(simptomi);
-
             Set<Bolest> virusi = BazaPodataka.dohvatiSveBolesti();
-
-            PretragaVirusiController.setObservableListaVirusa(FXCollections.observableArrayList());
-
-            PretragaVirusiController.setVirusi(virusi);
-
-            PretragaVirusiController.getObservableListaVirusa().addAll(PretragaVirusiController.getVirusi());
 
             List<Long> indexList =  Arrays.stream(simptomiText.split(",")).map(e -> Long.parseLong(e)).collect(Collectors.toList());
 
@@ -60,17 +50,6 @@ public class DodavanjeNovogVirusaController {
             Virus noviVirus = new Virus((long)1, nazivVirusaText, simptomi);
 
             BazaPodataka.spremiNovuBolest(noviVirus);
-
-            // Provjera da li je unos bolest ili virus i unos u polje bolesti
-
-            if (PretragaBolestiController.getBolesti() == null) {
-                PretragaBolestiController.setBolesti(new HashSet<>());
-            }
-            PretragaBolestiController.getBolesti().add(noviVirus);
-
-            PretragaBolestiController.setObservableListaBolesti(FXCollections.observableArrayList());
-
-            PretragaBolestiController.getObservableListaBolesti().addAll(PretragaBolestiController.getBolesti().stream().filter(z -> ((z instanceof Virus))).collect(Collectors.toList()));
 
             logger.info("Unesena je bolest: " + noviVirus.getNaziv());
 

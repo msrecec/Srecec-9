@@ -11024,3 +11024,30 @@ INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?) [23505-199]
 2020-12-28 02:10:44,329 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:98] Polje je prazno!
 2020-12-28 02:10:47,265 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:98] Polje je prazno!
 2020-12-28 02:25:09,180 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:93] Unesena je bolest: Nova
+2020-12-28 02:47:01,395 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogVirusaController [DodavanjeNovogVirusaController.java:75] Unesena je bolest: Novi
+2020-12-28 02:47:16,191 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:79] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 02:47:21,729 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:79] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 02:47:26,251 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:79] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 02:48:35,048 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:141] Unesena je osoba: Mislav
+2020-12-28 02:50:15,602 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:141] Unesena je osoba: sda
+2020-12-28 03:09:07,971 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:159] Osoba ne postoji!
+2020-12-28 03:09:14,882 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:154] Unesena je osoba: Mislav
+2020-12-28 03:11:33,973 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:154] Unesena je osoba: a
+2020-12-28 03:16:37,162 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:74] Unesena je bolest: nova
+2020-12-28 03:18:19,055 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:74] Unesena je bolest: asd
+2020-12-28 03:18:54,321 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:74] Unesena je bolest: awdaw
+2020-12-28 03:19:19,166 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:74] Unesena je bolest: dad
+2020-12-28 12:17:46,331 ERROR [JavaFX Application Thread] m.j.s.PretragaZupanijaController [PretragaZupanijaController.java:77] Connection is broken: "java.net.SocketTimeoutException: Connect timed out: localhost" [90067-199]
+2020-12-28 12:17:52,103 ERROR [JavaFX Application Thread] m.j.s.PretragaSimptomaController [PretragaSimptomaController.java:66] Connection is broken: "java.net.SocketTimeoutException: Connect timed out: localhost" [90067-199]
+2020-12-28 12:20:00,182 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:52] Unesena je bolest: TestBolest
+2020-12-28 12:20:23,259 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 12:20:27,187 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 12:20:31,743 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:52] Unesena je bolest: Nova
+2020-12-28 12:20:50,308 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:52] Unesena je bolest: Testirajuca Bolest
+2020-12-28 12:21:23,680 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 12:22:45,398 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 12:22:50,097 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 12:22:55,226 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 12:23:02,376 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 12:23:09,078 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 12:23:15,367 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!

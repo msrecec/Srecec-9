@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.java.sample.covidportal.baza.BazaPodataka;
 import main.java.sample.covidportal.iznimke.DuplikatKontaktiraneOsobe;
+import main.java.sample.covidportal.iznimke.NepostojecaOsoba;
 import main.java.sample.covidportal.iznimke.PraznoPolje;
 import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Osoba;
@@ -50,25 +51,11 @@ public class DodavanjeNoveOsobeController {
                 throw new PraznoPolje();
             }
 
-
-
-            Set<Simptom> simptomi = BazaPodataka.dohvatiSveSimptome();
-
-            PretragaSimptomaController.setObservableListaSimptoma(FXCollections.observableArrayList());
-
-            PretragaSimptomaController.setSimptomi(simptomi);
-
             Set<Bolest> bolesti = BazaPodataka.dohvatiSveBolesti();
-
-            PretragaBolestiController.setObservableListaBolesti(FXCollections.observableArrayList());
-
-            PretragaBolestiController.setBolesti(bolesti);
 
             SortedSet<Zupanija> zupanije = BazaPodataka.dohvatiSveZupanije();
 
-            PretragaZupanijaController.setObservableListaZupanija(FXCollections.observableArrayList());
-
-            PretragaZupanijaController.setZupanije(zupanije);
+            List<Osoba> osobe = BazaPodataka.dohvatiSveOsobe();
 
 
 
@@ -84,9 +71,9 @@ public class DodavanjeNoveOsobeController {
 
             Long odabranaZupanija = Long.parseLong(zupanijaOsobe.getText());
 
-            Iterator<Zupanija> iteratorZupanija = PretragaZupanijaController.getZupanije().iterator();
+            Iterator<Zupanija> iteratorZupanija = zupanije.iterator();
 
-            for (int j = 0; j < PretragaZupanijaController.getZupanije().size() && iteratorZupanija.hasNext(); ++j) {
+            for (int j = 0; j < zupanije.size() && iteratorZupanija.hasNext(); ++j) {
                 zupanijaOsobeZupanija = iteratorZupanija.next();
                 if (zupanijaOsobeZupanija.getId().compareTo(odabranaZupanija) == 0) {
                     break;
@@ -95,9 +82,9 @@ public class DodavanjeNoveOsobeController {
 
             Long odabranaUnesenaBolest = Long.parseLong(bolestOsobeText);
 
-            Iterator<Bolest> iteratorBolesti = PretragaBolestiController.getBolesti().iterator();
+            Iterator<Bolest> iteratorBolesti = bolesti.iterator();
 
-            for (int j = 0; j < PretragaBolestiController.getBolesti().size() && iteratorBolesti.hasNext(); ++j) {
+            for (int j = 0; j < bolesti.size() && iteratorBolesti.hasNext(); ++j) {
                 bolestOsobeBolest = iteratorBolesti.next();
                 if (bolestOsobeBolest.getId().compareTo(odabranaUnesenaBolest) == 0) {
                     break;
@@ -108,7 +95,7 @@ public class DodavanjeNoveOsobeController {
 
             Arrays.stream(kontaktiraneOsobeText.split(",")).forEach(el -> {
 
-                List<Osoba> mojeOsobe = PretragaOsobaController.getOsobe();
+                List<Osoba> mojeOsobe = osobe;
 
                 for(Osoba o : mojeOsobe) {
                     if(o.getId().compareTo(Long.parseLong(el)) == 0) {
@@ -118,31 +105,28 @@ public class DodavanjeNoveOsobeController {
 
             });
 
+            if(finalKontaktiraneOsobe.isEmpty()) {
+                throw new NepostojecaOsoba();
+            }
+
+            List<Osoba> finalKontaktiraneOsobe1 = finalKontaktiraneOsobe.stream().collect(Collectors.toSet()).stream().collect(Collectors.toList());
+
             Osoba novaOsoba = new Osoba.Builder((long) 1)
                     .ime(imeOsobeText)
                     .prezime(prezimeOsobeText)
                     .datumRodjenja(datumRodjenjaDate)
                     .zupanija(zupanijaOsobeZupanija)
                     .zarazenBolescu(bolestOsobeBolest)
-                    .kontaktiraneOsobe(finalKontaktiraneOsobe)
+                    .kontaktiraneOsobe(finalKontaktiraneOsobe1)
                     .build();
 
             BazaPodataka.spremiNovuOsobu(novaOsoba);
-
-            if (PretragaOsobaController.getOsobe() == null) {
-                PretragaOsobaController.setOsobe(new ArrayList<>());
-            }
-            PretragaOsobaController.getOsobe().add(novaOsoba);
-
-            PretragaOsobaController.setObservableListaOsoba(FXCollections.observableArrayList());
-
-            PretragaOsobaController.getObservableListaOsoba().addAll(PretragaOsobaController.getOsobe());
 
             logger.info("Unesena je osoba: " + novaOsoba.getIme());
 
             PocetniEkranController.uspjesanUnos();
 
-        } catch (IOException | PraznoPolje | NumberFormatException | SQLException | DuplikatKontaktiraneOsobe ex) {
+        } catch (IOException | PraznoPolje | NumberFormatException | SQLException | DuplikatKontaktiraneOsobe | NepostojecaOsoba ex) {
             logger.error(ex.getMessage());
             PocetniEkranController.neuspjesanUnos(ex.getMessage());
         }
