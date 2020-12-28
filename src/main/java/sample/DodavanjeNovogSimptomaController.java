@@ -7,13 +7,14 @@ import main.java.sample.covidportal.enumeracija.VrijednostSimptoma;
 import main.java.sample.covidportal.iznimke.DuplikatSimptoma;
 import main.java.sample.covidportal.iznimke.PraznoPolje;
 import main.java.sample.covidportal.model.Simptom;
+import main.java.sample.covidportal.model.VrijednostEnumeracije;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class DodavanjeNovogSimptomaController {
+public class DodavanjeNovogSimptomaController implements VrijednostEnumeracije {
 
     private static final Logger logger = LoggerFactory.getLogger(DodavanjeNovogSimptomaController.class);
 
@@ -33,13 +34,7 @@ public class DodavanjeNovogSimptomaController {
                 throw new PraznoPolje();
             }
 
-            Simptom noviSimptom = new Simptom((long) 1, nazivSimptomaText,
-                    vrijednostSimptomaText.equals(VrijednostSimptoma.RIJETKO.getVrijednost()) ?
-                            VrijednostSimptoma.RIJETKO :
-                            vrijednostSimptoma.equals(VrijednostSimptoma.SREDNJE.getVrijednost()) ?
-                                    VrijednostSimptoma.SREDNJE :
-                                    VrijednostSimptoma.CESTO
-            );
+            Simptom noviSimptom = new Simptom((long) 1, nazivSimptomaText, VrijednostEnumeracije.vrijednostZarazno(vrijednostSimptomaText));
 
             BazaPodataka.spremiNoviSimptom(noviSimptom);
 

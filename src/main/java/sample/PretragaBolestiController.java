@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class PretragaBolestiController implements Initializable {
     private static ObservableList<Bolest> observableListaBolesti;
 
-    private static Set<Bolest> bolesti;
+    private static List<Bolest> bolesti;
 
     private static final Logger logger = LoggerFactory.getLogger(PretragaBolestiController.class);
 
@@ -63,7 +63,7 @@ public class PretragaBolestiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        bolesti = new HashSet<>();
+        bolesti = new ArrayList<>();
         observableListaBolesti = FXCollections.observableArrayList();
 
         try {
@@ -91,11 +91,11 @@ public class PretragaBolestiController implements Initializable {
         PretragaBolestiController.observableListaBolesti = observableListaBolesti;
     }
 
-    public static Set<Bolest> getBolesti() {
+    public static List<Bolest> getBolesti() {
         return bolesti;
     }
 
-    public static void setBolesti(Set<Bolest> bolesti) {
+    public static void setBolesti(List<Bolest> bolesti) {
         PretragaBolestiController.bolesti = bolesti;
     }
 }

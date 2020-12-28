@@ -12,7 +12,7 @@ import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BazaPodataka {
+public class BazaPodataka implements VrijednostEnumeracije {
     private static final String DATABASE_CONFIGURATION_FILE = "src\\main\\resources\\database.properties";
 
     /**
@@ -56,8 +56,8 @@ public class BazaPodataka {
      * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
-    public static Set<Simptom> dohvatiSveSimptome() throws SQLException, IOException {
-        Set<Simptom> simptomi = new HashSet<>();
+    public static List<Simptom> dohvatiSveSimptome() throws SQLException, IOException {
+        List<Simptom> simptomi = new ArrayList<>();
         Connection veza = connectToDatabase();
         Statement stmt = veza.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM SIMPTOM");
@@ -114,13 +114,9 @@ public class BazaPodataka {
         String naziv = rs.getString("NAZIV");
         String vrijednostSimptoma = rs.getString("VRIJEDNOST");
 
-        Simptom simptom = new Simptom(id, naziv,
-                vrijednostSimptoma.equals(VrijednostSimptoma.RIJETKO.getVrijednost()) ?
-                VrijednostSimptoma.RIJETKO :
-                vrijednostSimptoma.equals(VrijednostSimptoma.SREDNJE.getVrijednost()) ?
-                        VrijednostSimptoma.SREDNJE :
-                        VrijednostSimptoma.CESTO
-        );
+        Simptom simptom = new Simptom(id, naziv, VrijednostEnumeracije.vrijednostZarazno(vrijednostSimptoma));
+
+        System.out.println(simptom.getVrijednost().getVrijednost());
 
         return simptom;
     }
@@ -178,8 +174,8 @@ public class BazaPodataka {
      * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
-    public static Set<Bolest> dohvatiSveBolesti() throws SQLException, IOException {
-        Set<Bolest> bolesti = new HashSet<>();
+    public static List<Bolest> dohvatiSveBolesti() throws SQLException, IOException {
+        List<Bolest> bolesti = new ArrayList<>();
         Connection veza = connectToDatabase();
         Statement stmt = veza.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM BOLEST");

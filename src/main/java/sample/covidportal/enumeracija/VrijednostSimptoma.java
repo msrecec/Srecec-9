@@ -1,9 +1,10 @@
 package main.java.sample.covidportal.enumeracija;
 
 public enum VrijednostSimptoma {
-    RIJETKO("RIJETKO"),
-    SREDNJE("SREDNJE"),
-    CESTO("ČESTO");
+    PRODUKTIVNI("Produktivni"),
+    INTENZIVNO("Intenzivno"),
+    VISOKA("Visoka"),
+    JAKA("Jaka");
 
     private String vrijednost;
 

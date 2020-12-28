@@ -372,7 +372,15 @@ public class Osoba implements Serializable {
      * @param kontaktiraneOsobe
      */
 
-    public void setKontaktiraneOsobe(List<Osoba> kontaktiraneOsobe) {
+    public void setKontaktiraneOsobe(List<Osoba> kontaktiraneOsobe)
+    {
+//        if (!Objects.isNull(kontaktiraneOsobe)) {
+//            if (zarazenBolescu instanceof Virus virus) {
+//                for (Osoba kontaktiranaOsoba : kontaktiraneOsobe) {
+//                    virus.prelazakZarazeNaOsobu(kontaktiranaOsoba);
+//                }
+//            }
+//        }
         this.kontaktiraneOsobe = kontaktiraneOsobe;
     }
 }

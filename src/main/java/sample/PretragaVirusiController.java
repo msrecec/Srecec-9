@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class PretragaVirusiController implements Initializable {
 
-    private static Set<Bolest> virusi;
+    private static List<Bolest> virusi;
 
     private static final Logger logger = LoggerFactory.getLogger(PretragaVirusiController.class);
 
@@ -64,7 +64,7 @@ public class PretragaVirusiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        virusi = new HashSet<>();
+        virusi = new ArrayList<>();
         observableListaVirusa = FXCollections.observableArrayList();
 
         try {
@@ -92,11 +92,11 @@ public class PretragaVirusiController implements Initializable {
         PretragaVirusiController.observableListaVirusa = observableListaVirusa;
     }
 
-    public static Set<Bolest> getVirusi() {
+    public static List<Bolest> getVirusi() {
         return virusi;
     }
 
-    public static void setVirusi(Set<Bolest> virusi) {
+    public static void setVirusi(List<Bolest> virusi) {
         PretragaVirusiController.virusi = virusi;
     }
 }

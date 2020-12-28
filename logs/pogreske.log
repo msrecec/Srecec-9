@@ -11051,3 +11051,15 @@ INSERT INTO BOLEST_SIMPTOM(BOLEST_ID, SIMPTOM_ID) VALUES (?, ?) [23505-199]
 2020-12-28 12:23:02,376 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
 2020-12-28 12:23:09,078 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
 2020-12-28 12:23:15,367 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 14:17:15,689 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveZupanijeController [DodavanjeNoveZupanijeController.java:47] Unesena je zupanija: Koprivničko-križevačka
+2020-12-28 14:17:39,616 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:46] Unesen je simptom: Suhi nos
+2020-12-28 14:18:23,809 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:62] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 14:18:28,275 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveBolestiController [DodavanjeNoveBolestiController.java:57] Unesena je bolest: Nova bolest
+2020-12-28 14:20:42,726 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNovogVirusaController [DodavanjeNovogVirusaController.java:63] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 14:20:46,681 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNovogVirusaController [DodavanjeNovogVirusaController.java:63] Unesena bolest ima iste simptome kao prethodno unesena bolest!
+2020-12-28 14:21:53,319 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogVirusaController [DodavanjeNovogVirusaController.java:58] Unesen je virus: Novi virus
+2020-12-28 14:23:06,826 ERROR [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:97] Ne postoji bolest za uneseni ID!
+2020-12-28 14:23:14,683 INFO [JavaFX Application Thread] m.j.s.DodavanjeNoveOsobeController [DodavanjeNoveOsobeController.java:92] Unesena je osoba: Mislav
+2020-12-28 16:21:27,791 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:41] Unesen je simptom: Novi
+2020-12-28 16:21:42,051 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:41] Unesen je simptom: Novi
+2020-12-28 16:23:52,207 INFO [JavaFX Application Thread] m.j.s.DodavanjeNovogSimptomaController [DodavanjeNovogSimptomaController.java:41] Unesen je simptom: qwe

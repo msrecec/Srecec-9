@@ -9,7 +9,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.sample.covidportal.baza.BazaPodataka;
+import main.java.sample.covidportal.enumeracija.VrijednostSimptoma;
 import main.java.sample.covidportal.model.Simptom;
+import main.java.sample.covidportal.model.VrijednostEnumeracije;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class PretragaSimptomaController implements Initializable {
     private static ObservableList<Simptom> observableListaSimptoma;
-    private static Set<Simptom> simptomi;
+    private static List<Simptom> simptomi;
 
     private static final Logger logger = LoggerFactory.getLogger(PretragaSimptomaController.class);
 
@@ -30,7 +32,7 @@ public class PretragaSimptomaController implements Initializable {
     @FXML
     private TableColumn<Simptom, String> nazivStupac;
     @FXML
-    private TableColumn<Simptom, String> vrijednostStupac;
+    private TableColumn<Simptom, VrijednostSimptoma> vrijednostStupac;
     @FXML
     private TextField unosNazivaSimptoma;
     @FXML
@@ -50,14 +52,14 @@ public class PretragaSimptomaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        simptomi = new HashSet<>();
+        simptomi = new ArrayList<>();
         observableListaSimptoma = FXCollections.observableArrayList();
         try {
             simptomi = BazaPodataka.dohvatiSveSimptome();
             observableListaSimptoma.addAll(simptomi);
 
             nazivStupac.setCellValueFactory(new PropertyValueFactory<Simptom, String>("naziv"));
-            vrijednostStupac.setCellValueFactory(new PropertyValueFactory<Simptom, String>("vrijednost"));
+            vrijednostStupac.setCellValueFactory(new PropertyValueFactory<Simptom, VrijednostSimptoma>("vrijednost"));
             idStupac.setCellValueFactory(new PropertyValueFactory<Long, String>("id"));
 
             tablicaSimptoma.setItems(observableListaSimptoma);
@@ -76,11 +78,11 @@ public class PretragaSimptomaController implements Initializable {
         PretragaSimptomaController.observableListaSimptoma = observableListaSimptoma;
     }
 
-    public static Set<Simptom> getSimptomi() {
+    public static List<Simptom> getSimptomi() {
         return simptomi;
     }
 
-    public static void setSimptomi(Set<Simptom> simptomi) {
+    public static void setSimptomi(List<Simptom> simptomi) {
         PretragaSimptomaController.simptomi = simptomi;
     }
 }
