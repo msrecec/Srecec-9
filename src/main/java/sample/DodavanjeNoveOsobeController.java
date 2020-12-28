@@ -5,9 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.java.sample.covidportal.baza.BazaPodataka;
-import main.java.sample.covidportal.iznimke.DuplikatKontaktiraneOsobe;
-import main.java.sample.covidportal.iznimke.NepostojecaOsoba;
-import main.java.sample.covidportal.iznimke.PraznoPolje;
+import main.java.sample.covidportal.iznimke.*;
 import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Osoba;
 import main.java.sample.covidportal.model.Simptom;
@@ -51,65 +49,53 @@ public class DodavanjeNoveOsobeController {
                 throw new PraznoPolje();
             }
 
-            Set<Bolest> bolesti = BazaPodataka.dohvatiSveBolesti();
-
-            SortedSet<Zupanija> zupanije = BazaPodataka.dohvatiSveZupanije();
-
-            List<Osoba> osobe = BazaPodataka.dohvatiSveOsobe();
-
-
-
             String imeOsobeText = imeOsobe.getText();
             String prezimeOsobeText = prezimeOsobe.getText();
             Date datumRodjenjaDate = Date.valueOf(datumRodjenja.getText());
-            Zupanija zupanijaOsobeZupanija = null;
+            Zupanija zupanijaOsobeZupanija;
             String bolestOsobeText = bolestOsobe.getText();
             String kontaktiraneOsobeText = kontaktiraneOsobe.getText();
-            Bolest bolestOsobeBolest = null;
+            Bolest bolestOsobeBolest;
 
              // odabir zupanije iz seta zupanija po indeksu
 
             Long odabranaZupanija = Long.parseLong(zupanijaOsobe.getText());
+            Optional<Zupanija> dohvacenaZupanijaOsobeZupanija  = BazaPodataka.dohvatiZupaniju(odabranaZupanija);
 
-            Iterator<Zupanija> iteratorZupanija = zupanije.iterator();
-
-            for (int j = 0; j < zupanije.size() && iteratorZupanija.hasNext(); ++j) {
-                zupanijaOsobeZupanija = iteratorZupanija.next();
-                if (zupanijaOsobeZupanija.getId().compareTo(odabranaZupanija) == 0) {
-                    break;
-                }
+            if(dohvacenaZupanijaOsobeZupanija.isPresent()) {
+                zupanijaOsobeZupanija = dohvacenaZupanijaOsobeZupanija.get();
+            } else {
+                throw new NepostojecaZupanija();
             }
 
-            Long odabranaUnesenaBolest = Long.parseLong(bolestOsobeText);
 
-            Iterator<Bolest> iteratorBolesti = bolesti.iterator();
+            Long odabranaBolest = Long.parseLong(bolestOsobeText);
+            Optional<Bolest> dohvacenaBolestOsobeBolest  = BazaPodataka.dohvatiBolest(odabranaBolest);
 
-            for (int j = 0; j < bolesti.size() && iteratorBolesti.hasNext(); ++j) {
-                bolestOsobeBolest = iteratorBolesti.next();
-                if (bolestOsobeBolest.getId().compareTo(odabranaUnesenaBolest) == 0) {
-                    break;
-                }
+            if(dohvacenaBolestOsobeBolest.isPresent()) {
+                bolestOsobeBolest = dohvacenaBolestOsobeBolest.get();
+            } else {
+                throw new NepostojecaBolest();
             }
 
             List<Osoba> finalKontaktiraneOsobe = new ArrayList<>();
 
-            Arrays.stream(kontaktiraneOsobeText.split(",")).forEach(el -> {
+            List<Long> listaIdOsobaArrays = Arrays.stream(kontaktiraneOsobeText
+                    .split(","))
+                    .map(el -> Long.parseLong(el))
+                    .collect(Collectors.toSet()).stream()
+                    .collect(Collectors.toList());
 
-                List<Osoba> mojeOsobe = osobe;
+            Optional<Osoba> dohvacenaOsoba;
 
-                for(Osoba o : mojeOsobe) {
-                    if(o.getId().compareTo(Long.parseLong(el)) == 0) {
-                        finalKontaktiraneOsobe.add(o);
-                    }
+            for(Long i : listaIdOsobaArrays) {
+                dohvacenaOsoba = BazaPodataka.dohvatiOsobu(i);
+                if(dohvacenaOsoba.isPresent()) {
+                    finalKontaktiraneOsobe.add(dohvacenaOsoba.get());
+                } else {
+                    throw new NepostojecaOsoba();
                 }
-
-            });
-
-            if(finalKontaktiraneOsobe.isEmpty()) {
-                throw new NepostojecaOsoba();
             }
-
-            List<Osoba> finalKontaktiraneOsobe1 = finalKontaktiraneOsobe.stream().collect(Collectors.toSet()).stream().collect(Collectors.toList());
 
             Osoba novaOsoba = new Osoba.Builder((long) 1)
                     .ime(imeOsobeText)
@@ -117,7 +103,7 @@ public class DodavanjeNoveOsobeController {
                     .datumRodjenja(datumRodjenjaDate)
                     .zupanija(zupanijaOsobeZupanija)
                     .zarazenBolescu(bolestOsobeBolest)
-                    .kontaktiraneOsobe(finalKontaktiraneOsobe1)
+                    .kontaktiraneOsobe(finalKontaktiraneOsobe)
                     .build();
 
             BazaPodataka.spremiNovuOsobu(novaOsoba);
@@ -126,7 +112,7 @@ public class DodavanjeNoveOsobeController {
 
             PocetniEkranController.uspjesanUnos();
 
-        } catch (IOException | PraznoPolje | NumberFormatException | SQLException | DuplikatKontaktiraneOsobe | NepostojecaOsoba ex) {
+        } catch (IOException | PraznoPolje | NumberFormatException | SQLException | DuplikatKontaktiraneOsobe | NepostojecaOsoba | NepostojecaZupanija | NepostojecaBolest ex) {
             logger.error(ex.getMessage());
             PocetniEkranController.neuspjesanUnos(ex.getMessage());
         }

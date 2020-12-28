@@ -30,6 +30,8 @@ public class DodavanjeNovogVirusaController {
 
     public void dodajNoviVirus() {
         try {
+            Optional<Simptom> dohvaceniSimptom;
+
             String nazivVirusaText = nazivVirusa.getText();
             String simptomiText = simptomi.getText();
 
@@ -37,21 +39,23 @@ public class DodavanjeNovogVirusaController {
                 throw new PraznoPolje();
             }
 
-            Set<Simptom> simptomi = BazaPodataka.dohvatiSveSimptome();
-
-            Set<Bolest> virusi = BazaPodataka.dohvatiSveBolesti();
+            Set<Simptom> simptomi = new HashSet<>();
 
             List<Long> indexList =  Arrays.stream(simptomiText.split(",")).map(e -> Long.parseLong(e)).collect(Collectors.toList());
 
             for(Long i : indexList) {
-                simptomi.add(BazaPodataka.dohvatiSimptom(i).get());
+                dohvaceniSimptom = BazaPodataka.dohvatiSimptom(i);
+                if(dohvaceniSimptom.isPresent()) {
+                    System.out.println("Index od simptoma: " + i);
+                    simptomi.add(dohvaceniSimptom.get());
+                }
             }
 
             Virus noviVirus = new Virus((long)1, nazivVirusaText, simptomi);
 
             BazaPodataka.spremiNovuBolest(noviVirus);
 
-            logger.info("Unesena je bolest: " + noviVirus.getNaziv());
+            logger.info("Unesen je virus: " + noviVirus.getNaziv());
 
             PocetniEkranController.uspjesanUnos();
 

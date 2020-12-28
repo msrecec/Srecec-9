@@ -79,8 +79,8 @@ public class PocetniEkranController implements Initializable {
 
     public static void neuspjesanUnos(String err) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Greska");
-        alert.setHeaderText("Greska");
+        alert.setTitle("Greška");
+        alert.setHeaderText("Greška");
         alert.setContentText(err);
         alert.showAndWait();
     }

@@ -29,6 +29,8 @@ public class DodavanjeNoveBolestiController {
 
     public void dodajNovuBolest() {
         try {
+            Optional<Simptom> dohvaceniSimptom;
+
             String nazivBolestiText = nazivBolesti.getText();
             String simptomiText = simptomi.getText();
 
@@ -41,8 +43,11 @@ public class DodavanjeNoveBolestiController {
             List<Long> indexList =  Arrays.stream(simptomiText.split(",")).map(e -> Long.parseLong(e)).collect(Collectors.toSet()).stream().collect(Collectors.toList());
 
             for(Long i : indexList) {
-                System.out.println("Index od simptoma: " + i);
-                simptomi.add(BazaPodataka.dohvatiSimptom(i).get());
+                dohvaceniSimptom = BazaPodataka.dohvatiSimptom(i);
+                if(dohvaceniSimptom.isPresent()) {
+                    System.out.println("Index od simptoma: " + i);
+                    simptomi.add(dohvaceniSimptom.get());
+                }
             }
 
             Bolest novaBolest = new Bolest((long)1, nazivBolestiText, simptomi);
