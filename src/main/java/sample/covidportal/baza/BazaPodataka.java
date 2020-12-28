@@ -1,10 +1,7 @@
 package main.java.sample.covidportal.baza;
 
 import main.java.sample.covidportal.enumeracija.VrijednostSimptoma;
-import main.java.sample.covidportal.iznimke.BolestIstihSimptoma;
-import main.java.sample.covidportal.iznimke.DuplikatKontaktiraneOsobe;
-import main.java.sample.covidportal.iznimke.DuplikatSimptoma;
-import main.java.sample.covidportal.iznimke.ZupanijaIstogNaziva;
+import main.java.sample.covidportal.iznimke.*;
 import main.java.sample.covidportal.model.*;
 import main.java.sample.covidportal.sort.CovidSorter;
 
@@ -84,8 +81,8 @@ public class BazaPodataka {
      * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
-    public static Optional<Simptom> dohvatiSimptom(Long idSimptoma) throws SQLException, IOException {
-        Optional<Simptom> simptom;
+    public static Simptom dohvatiSimptom(Long idSimptoma) throws SQLException, IOException, NepostojeciSimptom {
+        Simptom simptom;
         Connection veza = connectToDatabase();
         PreparedStatement upit = veza.prepareStatement("SELECT * FROM SIMPTOM WHERE ID = ?");
 
@@ -94,9 +91,9 @@ public class BazaPodataka {
         ResultSet rs = upit.executeQuery();
 
         if(rs.next()) {
-            simptom = Optional.ofNullable(unosSimptoma(rs));
+            simptom = unosSimptoma(rs);
         } else {
-            simptom = Optional.ofNullable(null);
+            throw new NepostojeciSimptom();
         }
 
         closeConnectionToDatabase(veza);
@@ -207,8 +204,8 @@ public class BazaPodataka {
      * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
-    public static Optional<Bolest> dohvatiBolest(Long idBolesti) throws SQLException, IOException {
-        Optional<Bolest> bolest;
+    public static Bolest dohvatiBolest(Long idBolesti) throws SQLException, IOException, NepostojecaBolest {
+        Bolest bolest;
         Connection veza = connectToDatabase();
         PreparedStatement upit = veza.prepareStatement("SELECT * FROM BOLEST WHERE ID = ?");
 
@@ -217,9 +214,9 @@ public class BazaPodataka {
         ResultSet rs = upit.executeQuery();
 
         if(rs.next()) {
-            bolest = Optional.of(unosBolesti(rs, veza));
+            bolest = unosBolesti(rs, veza);
         } else {
-            bolest = Optional.ofNullable(null);
+            throw new NepostojecaBolest();
         }
 
         closeConnectionToDatabase(veza);
@@ -396,8 +393,8 @@ public class BazaPodataka {
      * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
-    public static Optional<Zupanija> dohvatiZupaniju(Long idZupanije) throws SQLException, IOException {
-        Optional<Zupanija> zupanija;
+    public static Zupanija dohvatiZupaniju(Long idZupanije) throws SQLException, IOException, NepostojecaZupanija {
+        Zupanija zupanija;
         Connection veza = connectToDatabase();
         PreparedStatement upit = veza.prepareStatement("SELECT * FROM ZUPANIJA WHERE ID = ?");
 
@@ -406,9 +403,9 @@ public class BazaPodataka {
         ResultSet rs = upit.executeQuery();
 
         if(rs.next()) {
-            zupanija = Optional.ofNullable(unosZupanije(rs));
+            zupanija = unosZupanije(rs);
         } else {
-            zupanija = Optional.ofNullable(null);
+            throw new NepostojecaZupanija();
         }
 
         closeConnectionToDatabase(veza);
@@ -472,7 +469,7 @@ public class BazaPodataka {
      * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
-    public static List<Osoba> dohvatiSveOsobe() throws SQLException, IOException {
+    public static List<Osoba> dohvatiSveOsobe() throws SQLException, IOException, NepostojecaBolest, NepostojecaZupanija {
         List<Osoba> osobe = new ArrayList<>();
         Connection veza = connectToDatabase();
         Statement stmt = veza.createStatement();
@@ -502,7 +499,7 @@ public class BazaPodataka {
      * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
-    private static Osoba unosOsobe(ResultSet rs, Connection veza) throws SQLException, IOException {
+    private static Osoba unosOsobe(ResultSet rs, Connection veza) throws SQLException, IOException, NepostojecaZupanija, NepostojecaBolest {
         Osoba osoba;
         long idOsobe = rs.getLong("ID");
         String imeOsobe = rs.getString("IME");
@@ -510,8 +507,8 @@ public class BazaPodataka {
         Date date = (Date) rs.getDate("DATUM_RODJENJA");
         Long zupanijaId = rs.getLong("ZUPANIJA_ID");
         Long bolestId = rs.getLong("BOLEST_ID");
-        Zupanija zupanija = dohvatiZupaniju(zupanijaId).get();
-        Bolest bolest = dohvatiBolest(bolestId).get();
+        Zupanija zupanija = dohvatiZupaniju(zupanijaId);
+        Bolest bolest = dohvatiBolest(bolestId);
 
         osoba = new Osoba.Builder(idOsobe).ime(imeOsobe).prezime(prezimeOsobe).datumRodjenja(date).zupanija(zupanija)
                 .zarazenBolescu(bolest).build();
@@ -562,8 +559,8 @@ public class BazaPodataka {
      * @throws IOException ako je greska prilikom dohvacanja konfiguracijske datoteke
      */
 
-    public static Optional<Osoba> dohvatiOsobu(Long idOsobe) throws SQLException, IOException {
-        Optional<Osoba> osoba;
+    public static Osoba dohvatiOsobu(Long idOsobe) throws SQLException, IOException, NepostojecaOsoba, NepostojecaBolest, NepostojecaZupanija {
+        Osoba osoba;
         Connection veza = connectToDatabase();
         PreparedStatement upit = veza.prepareStatement("SELECT * FROM OSOBA WHERE ID = ?");
 
@@ -572,9 +569,9 @@ public class BazaPodataka {
         ResultSet rs = upit.executeQuery();
 
         if(rs.next()) {
-            osoba = Optional.of(unosOsobe(rs, veza));
+            osoba = unosOsobe(rs, veza);
         } else {
-            osoba = Optional.ofNullable(null);
+            throw new NepostojecaOsoba();
         }
 
         closeConnectionToDatabase(veza);

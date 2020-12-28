@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.java.sample.covidportal.baza.BazaPodataka;
 import main.java.sample.covidportal.iznimke.BolestIstihSimptoma;
+import main.java.sample.covidportal.iznimke.NepostojeciSimptom;
 import main.java.sample.covidportal.iznimke.PraznoPolje;
 import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Simptom;
@@ -30,7 +31,7 @@ public class DodavanjeNovogVirusaController {
 
     public void dodajNoviVirus() {
         try {
-            Optional<Simptom> dohvaceniSimptom;
+            Simptom dohvaceniSimptom;
 
             String nazivVirusaText = nazivVirusa.getText();
             String simptomiText = simptomi.getText();
@@ -45,10 +46,8 @@ public class DodavanjeNovogVirusaController {
 
             for(Long i : indexList) {
                 dohvaceniSimptom = BazaPodataka.dohvatiSimptom(i);
-                if(dohvaceniSimptom.isPresent()) {
-                    System.out.println("Index od simptoma: " + i);
-                    simptomi.add(dohvaceniSimptom.get());
-                }
+                System.out.println("Index od simptoma: " + i);
+                simptomi.add(dohvaceniSimptom);
             }
 
             Virus noviVirus = new Virus((long)1, nazivVirusaText, simptomi);
@@ -59,7 +58,7 @@ public class DodavanjeNovogVirusaController {
 
             PocetniEkranController.uspjesanUnos();
 
-        } catch (IOException | PraznoPolje | NumberFormatException | BolestIstihSimptoma | SQLException e) {
+        } catch (IOException | PraznoPolje | NumberFormatException | BolestIstihSimptoma | SQLException | NepostojeciSimptom e) {
             logger.error(e.getMessage());
             PocetniEkranController.neuspjesanUnos(e.getMessage());
         }

@@ -60,23 +60,10 @@ public class DodavanjeNoveOsobeController {
              // odabir zupanije iz seta zupanija po indeksu
 
             Long odabranaZupanija = Long.parseLong(zupanijaOsobe.getText());
-            Optional<Zupanija> dohvacenaZupanijaOsobeZupanija  = BazaPodataka.dohvatiZupaniju(odabranaZupanija);
-
-            if(dohvacenaZupanijaOsobeZupanija.isPresent()) {
-                zupanijaOsobeZupanija = dohvacenaZupanijaOsobeZupanija.get();
-            } else {
-                throw new NepostojecaZupanija();
-            }
-
+            zupanijaOsobeZupanija  = BazaPodataka.dohvatiZupaniju(odabranaZupanija);
 
             Long odabranaBolest = Long.parseLong(bolestOsobeText);
-            Optional<Bolest> dohvacenaBolestOsobeBolest  = BazaPodataka.dohvatiBolest(odabranaBolest);
-
-            if(dohvacenaBolestOsobeBolest.isPresent()) {
-                bolestOsobeBolest = dohvacenaBolestOsobeBolest.get();
-            } else {
-                throw new NepostojecaBolest();
-            }
+            bolestOsobeBolest  = BazaPodataka.dohvatiBolest(odabranaBolest);
 
             List<Osoba> finalKontaktiraneOsobe = new ArrayList<>();
 
@@ -86,15 +73,11 @@ public class DodavanjeNoveOsobeController {
                     .collect(Collectors.toSet()).stream()
                     .collect(Collectors.toList());
 
-            Optional<Osoba> dohvacenaOsoba;
+            Osoba dohvacenaOsoba;
 
             for(Long i : listaIdOsobaArrays) {
                 dohvacenaOsoba = BazaPodataka.dohvatiOsobu(i);
-                if(dohvacenaOsoba.isPresent()) {
-                    finalKontaktiraneOsobe.add(dohvacenaOsoba.get());
-                } else {
-                    throw new NepostojecaOsoba();
-                }
+                finalKontaktiraneOsobe.add(dohvacenaOsoba);
             }
 
             Osoba novaOsoba = new Osoba.Builder((long) 1)

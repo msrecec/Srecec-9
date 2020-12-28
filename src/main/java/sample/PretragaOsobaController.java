@@ -9,6 +9,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.sample.covidportal.baza.BazaPodataka;
+import main.java.sample.covidportal.iznimke.NepostojecaBolest;
+import main.java.sample.covidportal.iznimke.NepostojecaZupanija;
 import main.java.sample.covidportal.model.Bolest;
 import main.java.sample.covidportal.model.Osoba;
 import main.java.sample.covidportal.model.Zupanija;
@@ -90,7 +92,7 @@ public class PretragaOsobaController implements Initializable {
             kontaktiraneOsobeStupac.setCellValueFactory(new PropertyValueFactory<Osoba, List<Osoba>>("kontaktiraneOsobe"));
 
             tablicaOsoba.setItems(observableListaOsoba);
-        } catch (SQLException | IOException throwables) {
+        } catch (SQLException | IOException | NepostojecaBolest | NepostojecaZupanija throwables) {
             logger.error(throwables.getMessage());
             PocetniEkranController.neuspjesanUnos(throwables.getMessage());
         }
