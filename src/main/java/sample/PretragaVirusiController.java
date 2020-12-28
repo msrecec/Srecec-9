@@ -26,7 +26,7 @@ public class PretragaVirusiController implements Initializable {
 
     private static Set<Bolest> virusi;
 
-    private static final Logger logger = LoggerFactory.getLogger(PretragaBolestiController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PretragaVirusiController.class);
 
     private static ObservableList<Bolest> observableListaVirusa;
 

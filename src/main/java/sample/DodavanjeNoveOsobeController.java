@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class DodavanjeNoveOsobeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(DodavanjeNoveZupanijeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(DodavanjeNoveOsobeController.class);
 
     @FXML
     private TextField imeOsobe;
